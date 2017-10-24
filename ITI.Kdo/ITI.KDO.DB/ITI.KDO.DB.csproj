@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,29 +6,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\20172310.0000.Create-Schema.sql" />
-    <None Remove="Scripts\20172310.0001.Install-tUser.sql" />
-    <None Remove="Scripts\20172310.0002.Install-vUser.sql" />
-    <None Remove="Scripts\20172310.0003.Install-sUserCreate.sql" />
-    <None Remove="Scripts\20172310.0004.Install-sUserDelete.sql" />
-    <None Remove="Scripts\20172310.0005.Install-sUserUpdate.sql" />
-    <None Remove="Scripts\20172310.0006.Install-tPasswordUser.sql" />
-    <None Remove="Scripts\20172310.0007.Install-sPasswordUserCreate.sql" />
-    <None Remove="Scripts\20172310.0008.Install-sPasswordUserUpdate.sql" />
-    <None Remove="Scripts\20172310.0009.Install-sUserAddPassword.sql" />
+    <None Remove="Scripts\001.Create-schema.sql" />
+    <None Remove="Scripts\002.Install-tUser.sql" />
+    <None Remove="Scripts\003.Install-tCategoryPresent.sql" />
+    <None Remove="Scripts\004.Install-tPresent.sql" />
+    <None Remove="Scripts\005.Install-tUserPresent.sql" />
+    <None Remove="Scripts\006.Install-tEvent.sql" />
+    <None Remove="Scripts\007.Install-tParticipant.sql" />
+    <None Remove="Scripts\008.Install-tQuantity.sql" />
+    <None Remove="Scripts\009.Install-tParticipation.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\20172310.0000.Create-Schema.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0001.Install-tUser.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0002.Install-vUser.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0003.Install-sUserCreate.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0004.Install-sUserDelete.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0005.Install-sUserUpdate.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0006.Install-tPasswordUser.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0007.Install-sPasswordUserCreate.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0008.Install-sPasswordUserUpdate.sql" />
-    <EmbeddedResource Include="Scripts\20172310.0009.Install-sUserAddPassword.sql" />
+    <EmbeddedResource Include="Scripts\001.Create-schema.sql" />
+    <EmbeddedResource Include="Scripts\002.Install-tUser.sql" />
+    <EmbeddedResource Include="Scripts\003.Install-tCategoryPresent.sql" />
+    <EmbeddedResource Include="Scripts\004.Install-tPresent.sql" />
+    <EmbeddedResource Include="Scripts\005.Install-tUserPresent.sql" />
+    <EmbeddedResource Include="Scripts\006.Install-tEvent.sql" />
+    <EmbeddedResource Include="Scripts\007.Install-tParticipant.sql" />
+    <EmbeddedResource Include="Scripts\008.Install-tQuantity.sql" />
+    <EmbeddedResource Include="Scripts\009.Install-tParticipation.sql" />
   </ItemGroup>
 
   <ItemGroup>
