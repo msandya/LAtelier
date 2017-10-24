@@ -1,0 +1,15 @@
+packages/
+.vs
+.vscode
+
+**/bin/
+**/obj/
+**/app/node_modules
+**/app/dll/
+#src/[web application name]/wwwroot/
+
+Private/
+Logs/
+**/TestResult.xml
+
+*.user
