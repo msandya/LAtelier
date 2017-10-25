@@ -16,6 +16,8 @@ namespace ITI.KDO.DAL
 
         public string Email { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         public string PhoneTel { get; set; }
 
         public byte[] Password { get; set; }

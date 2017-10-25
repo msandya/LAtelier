@@ -48,6 +48,7 @@ namespace ITI.KDO.DAL
                              u.FirstName,
                              u.LastName,
                              u.Email,
+                             u.BirthDate,
                              u.PhoneTel
                       from iti.vUser u;");
             }
@@ -63,6 +64,7 @@ namespace ITI.KDO.DAL
                              u.FirstName,
                              u.LastName,
                              u.Email,
+                             u.BirthDate,
                              u.PhoneTel
                       from iti.vUser u
                       where UserId = @UserId",
@@ -81,6 +83,7 @@ namespace ITI.KDO.DAL
                              u.FirstName,
                              u.LastName,
                              u.Email,
+                             u.BirthDate,
                              u.PhoneTel
                       from iti.vUser u
                       where Email = @Email",
@@ -99,6 +102,7 @@ namespace ITI.KDO.DAL
                              u.FirstName,
                              u.LastName,
                              u.Email,
+                             u.BirthDate,
                              u.PhoneTel
                       from iti.vUser u
                       where Pseudo = @Pseudo",
@@ -107,13 +111,26 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public void Create(string pseudo, string firstName, string lastName, string email, string phoneTel)
+        public User FindUserPassword(int userId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<User>(
+                    @"select [Password]
+                      from iti.tPasswordUser
+                      where UserId = @UserId",
+                    new { UserId = userId })
+                    .FirstOrDefault();
+            }
+        }
+
+        public void Create(string pseudo, string firstName, string lastName, string email, DateTime birthDate, string phoneTel)
         {
             using(SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "iti.sUserCreate",
-                    new { Pseudo = pseudo, FirstName = firstName, LastName = lastName, Email = email, PhoneTel = phoneTel },
+                    new { Pseudo = pseudo, FirstName = firstName, LastName = lastName, Email = email, BirthDate = birthDate, PhoneTel = phoneTel },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -129,13 +146,13 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public void Update(int userId, string pseudo, string firstName, string lastName, string email, string phoneTel)
+        public void Update(int userId, string pseudo, string firstName, string lastName, string email, DateTime birthDate, string phoneTel)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "sUserUpdate",
-                    new { UserId = userId, Pseudo = pseudo, FirstName = firstName, LastName = lastName, Email = email, PhoneTel = phoneTel },
+                    new { UserId = userId, Pseudo = pseudo, FirstName = firstName, LastName = lastName, Email = email, BirthDate = birthDate, PhoneTel = phoneTel },
                     commandType: CommandType.StoredProcedure);
             }
         }

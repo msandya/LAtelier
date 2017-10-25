@@ -5,6 +5,7 @@
 	@FirstName nvarchar(150),
 	@LastName nvarchar(150),
 	@Email nvarchar(150),
+	@BirthDate date,
 	@PhoneTel nvarchar(150)
 )
 as
@@ -14,6 +15,7 @@ begin
 		FirstName = @FirstName,
 		LastName = @LastName,
 		Email = @Email,
+		BirthDate = @BirthDate,
 		PhoneTel = @PhoneTel
 	where UserId = @UserId
 	return 0;

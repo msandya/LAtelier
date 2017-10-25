@@ -5,6 +5,7 @@
 	FirstName nvarchar(150) not null,
 	LastName nvarchar(150) not null,
 	Email nvarchar(150) not null,
+	BirthDate date,
 	PhoneTel nvarchar(150)
 
 
