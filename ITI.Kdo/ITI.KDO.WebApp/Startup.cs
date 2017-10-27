@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ITI.KDO.DAL;
+using ITI.KDO.WebApp.Services;
 
 namespace ITI.KDO.WebApp
 {
@@ -29,6 +31,11 @@ namespace ITI.KDO.WebApp
         {
             // Add framework services.
             services.AddMvc();
+            services.AddSingleton(_ => new UserGateway(Configuration["ConnectionStrings:KDODB"]));
+            services.AddSingleton<UserService>();
+            services.AddSingleton<TokenService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
