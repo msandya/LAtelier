@@ -1,0 +1,18 @@
+# Basic appveyor configuration : CodeCakeBuilder does the job.
+version: build{build}
+branches:
+  only:
+  - master
+  - develop
+environment:
+  MYGET_PREVIEW_API_KEY:
+    secure: yiu1sOdhAl87/xiVWTZy0qjvj0K9Ofihx8EKknMCM0zBj7ZY9Pg+Y6jH5RoqHqq7
+  MYGET_CI_API_KEY:
+    secure: yiu1sOdhAl87/xiVWTZy0qjvj0K9Ofihx8EKknMCM0zBj7ZY9Pg+Y6jH5RoqHqq7
+init:
+- git config --global core.autocrlf true
+install:
+  - ps: CodeCakeBuilder\Bootstrap.ps1
+build_script:
+- CodeCakeBuilder\bin\Release\CodeCakeBuilder.exe -nointeraction
+test: off
