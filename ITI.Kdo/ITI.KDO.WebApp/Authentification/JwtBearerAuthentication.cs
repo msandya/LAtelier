@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ITI.KDO.WebApp.Authentification
+﻿namespace ITI.KDO.WebApp.Authentification
 {
     public class JwtBearerAuthentication
     {
-        public const string AuthenticationScheme = "KdoJwtBearer";
-        public const string AuthenticationType = "KdoJwtBearer";
+        public const string AuthenticationScheme = "KDOJwtBearer";
+        public const string AuthenticationType = "KDOJwtBearer";
     }
 }

@@ -10,12 +10,12 @@ namespace ITI.KDO.WebApp.Services
     {
         readonly TokenProviderOptions _options;
 
-        public TokenService(IOptions<TokenProviderOptions> options)
+        public TokenService( IOptions<TokenProviderOptions> options )
         {
             _options = options.Value;
         }
 
-        public Token GenerateToken(string userId, string email)
+        public Token GenerateToken ( string userId, string email )
         {
             var now = DateTime.UtcNow;
 
@@ -40,7 +40,7 @@ namespace ITI.KDO.WebApp.Services
     }
     public class Token
     {
-        public Token(string accessToken, int expiresIn)
+        public Token( string accessToken, int expiresIn )
         {
             AccessToken = accessToken;
             ExpiresIn = expiresIn;

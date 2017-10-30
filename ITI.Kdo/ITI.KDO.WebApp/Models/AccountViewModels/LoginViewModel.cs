@@ -13,7 +13,7 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
+        [DataType( DataType.Password)]
         public string Password { get; set; }
     }
 }

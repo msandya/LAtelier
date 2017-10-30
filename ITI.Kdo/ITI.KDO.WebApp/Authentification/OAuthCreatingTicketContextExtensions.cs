@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using System.Security.Claims;
 
-namespace ITI.KDO.WebApp.Authentification
+namespace ITI.KDO.WebApp.Authentication
 {
     public static class OAuthCreatingTicketContextExtensions
     {
-        public static string GetEmail(this OAuthCreatingTicketContext @this)
+        public static string GetEmail( this OAuthCreatingTicketContext @this )
         {
-            return @this.Identity.FindFirst(c => c.Type == ClaimTypes.Email).Value;
+            return @this.Identity.FindFirst( c => c.Type == ClaimTypes.Email ).Value;
         }
 
-        static string GetNameIdentifier(this OAuthCreatingTicketContext @this)
+        static string GetNameIdentifier( this OAuthCreatingTicketContext @this )
         {
-            return @this.Identity.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            return @this.Identity.FindFirst( c => c.Type == ClaimTypes.NameIdentifier ).Value;
         }
     }
 }

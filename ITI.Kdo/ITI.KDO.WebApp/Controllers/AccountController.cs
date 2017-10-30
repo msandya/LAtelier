@@ -1,31 +1,62 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ITI.KDO.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Models.AccountViewModels;
 using ITI.KDO.DAL;
-using System.Security.Claims;
 using ITI.KDO.WebApp.Authentification;
-
 
 namespace ITI.KDO.WebApp.Controllers
 {
-    public class AccountController
+    public class AccountController : Controller
     {
-        readonly UserService _userService;
+        readonly UserServices _userService;
         readonly TokenService _tokenService;
         readonly Random _random;
 
-        public AccountController(UserService userService, TokenService tokenService)
+        public AccountController(UserServices userService, TokenService tokenService)
         {
             _userService = userService;
             _tokenService = tokenService;
             _random = new Random();
         }
 
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ModifyPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ModifyPassword(ModifyPasswordViewModel model)
+        {
+            Console.WriteLine("Modify Password");
+            if (ModelState.IsValid)
+            {
+                User user = _userService.FindUser(model.Email, model.OldPassword);
+                Console.WriteLine("User is authenticated {0}", user != null);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid email or password attempt.");
+                    return View(model);
+                }
+                if (model.NewPassword != model.NewPasswordConfirm)
+                {
+                    ModelState.AddModelError(string.Empty, "New passwords are not match.");
+                    return View(model);
+                }
+                _userService.UpdateUserPassword(user.UserId, model.NewPassword);
+                return RedirectToAction(nameof(Authenticated));
+            }
+            return View();
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -36,11 +67,13 @@ namespace ITI.KDO.WebApp.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login( LoginViewModel model )
         {
+            Console.WriteLine("Login");
             if (ModelState.IsValid)
             {
-                User user = _userService.FindUserSecret(model.Email, model.Password);
+                User user = _userService.FindUser(model.Email,model.Password);
+                Console.WriteLine("User is authenticated {0}", user != null);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -66,7 +99,7 @@ namespace ITI.KDO.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_userService.FindUserByEmail(model.Email) != null)
+                if (_userService.FindUserByEmail(model.Email) != null )
                 {
                     ModelState.AddModelError(string.Empty, "An account with this email already exists.");
                     return View(model);
@@ -129,5 +162,4 @@ namespace ITI.KDO.WebApp.Controllers
         }
 
     }
-}
 }

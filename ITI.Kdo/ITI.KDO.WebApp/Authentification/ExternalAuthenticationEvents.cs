@@ -1,43 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ITI.KDO.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using ITI.KDO.WebApp.Authentication;
 using ITI.KDO.WebApp.Authentification;
-using System.Security.Claims;
 
-namespace ITI.KDO.WebApp.Authentification
+namespace ITI.KDO.WebApp.Authentication
 {
     public class ExternalAuthenticationEvents
     {
         readonly IExternalAuthenticationManager _authenticationManager;
 
-        public ExternalAuthenticationEvents(IExternalAuthenticationManager authenticationManager)
+        public ExternalAuthenticationEvents( IExternalAuthenticationManager authenticationManager )
         {
             _authenticationManager = authenticationManager;
         }
 
-        public Task OnCreatingTicket(OAuthCreatingTicketContext context)
+        public Task OnCreatingTicket( OAuthCreatingTicketContext context )
         {
-            _authenticationManager.CreateOrUpdateUser(context);
-            User user = _authenticationManager.FindUser(context);
-            ClaimsPrincipal principal = CreatePrincipal(user);
-            context.Ticket = new AuthenticationTicket(principal, context.Ticket.Properties, CookieAuthentication.AuthenticationScheme);
+            _authenticationManager.CreateOrUpdateUser( context );
+            User user = _authenticationManager.FindUser( context );
+            ClaimsPrincipal principal = CreatePrincipal( user );
+            context.Ticket = new AuthenticationTicket( principal, context.Ticket.Properties, CookieAuthentication.AuthenticationScheme );
             return Task.CompletedTask;
         }
 
-        ClaimsPrincipal CreatePrincipal(User user)
+        ClaimsPrincipal CreatePrincipal( User user )
         {
             List<Claim> claims = new List<Claim>
             {
                 new Claim( ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String ),
                 new Claim( ClaimTypes.Email, user.Email )
             };
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty));
+            ClaimsPrincipal principal = new ClaimsPrincipal( new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty ) );
             return principal;
         }
     }
-}
 }

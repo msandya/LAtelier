@@ -7,8 +7,7 @@ namespace ITI.KDO.WebApp.Authentification
 {
     public class CookieAuthentication
     {
-
-        public const string AuthenticationScheme = "KdoCookie";
-        public const string AuthenticationType = "KdoCookie";
+        public const string AuthenticationScheme = "KDOCookie";
+        public const string AuthenticationType = "KDOCookie";
     }
 }

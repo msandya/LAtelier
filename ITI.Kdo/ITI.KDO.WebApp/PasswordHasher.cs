@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace ITI.Simiti.WebApp
+namespace ITI.KDO.WebApp
 {
     /// <summary>
     /// Implements the standard Identity password hashing.

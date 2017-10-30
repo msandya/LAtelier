@@ -1,35 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using ITI.KDO.WebApp.Services;
+using ITI.KDO.WebApp.Authentification;
 
 namespace ITI.KDO.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        readonly TokenService _tokenService;
+        readonly UserServices _userServices;
+
+        public HomeController(TokenService tokenService, UserServices userService)
+        {
+            _tokenService = tokenService;
+            _userServices = userService;
+        }
+
         public IActionResult Index()
         {
+            ClaimsIdentity identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == CookieAuthentication.AuthenticationType);
+            
+            if (identity != null)
+            {
+                string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string email = identity.FindFirst(ClaimTypes.Email).Value;
+                Token token = _tokenService.GenerateToken(userId, email);
+                ViewData["Token"] = token;
+                ViewData["Email"] = email;
+            }
+            else
+            {
+                ViewData["Token"] = null;
+                ViewData["Email"] = null;
+            }
+
+            ViewData["NoLayout"] = true;
             return View();
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
+        
     }
 }

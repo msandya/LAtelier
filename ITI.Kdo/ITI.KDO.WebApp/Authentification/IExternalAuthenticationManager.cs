@@ -1,16 +1,12 @@
 ﻿using ITI.KDO.DAL;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ITI.KDO.WebApp
+namespace ITI.KDO.WebApp.Authentication
 {
     public interface IExternalAuthenticationManager
     {
-        void CreateOrUpdateUser(OAuthCreatingTicketContext context);
+        void CreateOrUpdateUser( OAuthCreatingTicketContext context );
 
-        User FindUser(OAuthCreatingTicketContext context);
+        User FindUser( OAuthCreatingTicketContext context );
     }
 }
