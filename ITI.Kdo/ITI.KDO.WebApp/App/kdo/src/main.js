@@ -50,7 +50,7 @@ const router = new VueRouter({
     mode: 'history',
     base: '/Home',
     routes: [
-        { path: '/login', component: Login },
+        //{ path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
 
         { path: '', component: App, beforeEnter: requireAuth },
