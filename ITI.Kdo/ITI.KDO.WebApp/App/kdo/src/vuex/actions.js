@@ -1,4 +1,4 @@
-import * as types from './mutation-types'
+import * as types from './mutation-types';
 
 /**
  * Notify when an error happens
@@ -31,11 +31,9 @@ export async function tryExecuteAsyncRequest({ commit }, asyncCallback) {
 
     try {
         return await asyncCallback();
-    }
-    catch (error) {
+    } catch (error) {
         commit(types.ERROR_HAPPENED, `${error.status}: ${error.responseText || error.statusText}`);
-    }
-    finally {
+    } finally {
         commit(types.SET_IS_LOADING, false);
     }
 }
@@ -51,13 +49,11 @@ export async function executeAsyncRequest({ commit }, asyncCallback) {
 
     try {
         return await asyncCallback();
-    }
-    catch (error) {
+    } catch (error) {
         commit(types.ERROR_HAPPENED, `${error.status}: ${error.responseText || error.statusText}`);
         console.error(error);
         throw error;
-    }
-    finally {
+    } finally {
         commit(types.SET_IS_LOADING, false);
     }
 }

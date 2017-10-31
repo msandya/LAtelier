@@ -14,9 +14,9 @@ namespace ITI.KDO.WebApp.Controllers
             return new UserViewModel
             {
                 Pseudo = @this.Pseudo,
+                Email = @this.Email,
                 FirstName = @this.FirstName,
                 LastName = @this.LastName,
-                Email = @this.Email,
                 BirthDate = @this.BirthDate,
                 PhoneTel = @this.PhoneTel                
             };

@@ -3,6 +3,7 @@ class AuthService {
         this.allowedOrigins = [];
         this.providers = {};
         this.logoutEndpoint = null;
+        this.registerEndpoint = null;
         this.appRedirect = () => null;
         this.authenticatedCallbacks = [];
         this.signedOutCallbacks = [];
@@ -61,7 +62,7 @@ class AuthService {
 
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
-        var popup = window.open(provider.endpoint, "Connexion à ITI.KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
+        var popup = window.open(provider.endpoint, "Sign In KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
     }
 
     registerAuthenticatedCallback(cb) {
@@ -80,8 +81,16 @@ class AuthService {
         }
     }
 
+    modifyPassword() {
+        var popup = window.open(this.modifyPasswordEndpoint, "Modify Password", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
+    }
+
+    register() {
+        var popup = window.open(this.registerEndpoint, "Sign Up KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600")
+    }
+
     logout() {
-        var popup = window.open(this.logoutEndpoint, "Déconnexion d'ITI.KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600");
+        var popup = window.open(this.logoutEndpoint, "Log out from KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=600");
     }
 
     registerSignedOutCallback(cb) {

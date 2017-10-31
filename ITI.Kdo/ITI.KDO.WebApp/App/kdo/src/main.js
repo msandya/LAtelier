@@ -6,6 +6,8 @@ import App from './components/App.vue';
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Logout from './components/Logout.vue';
+
+import Test from './components/Test.vue';
 //import Register from './components/Register.vue';
 
 //import User from './components/User/User.vue';
@@ -50,10 +52,10 @@ const router = new VueRouter({
     mode: 'history',
     base: '/Home',
     routes: [
-        //{ path: '/login', component: Login },
+        { path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
 
-        { path: '', component: App, beforeEnter: requireAuth },
+        { path: '', component: Home, beforeEnter: requireAuth },
 
         //{ path: '/users/information', component: User, beforeEnter: requireAuth },
         //{ path: '/users/users/modiMP', component: UserModificationMP, beforeEnter: requireAuth },
@@ -92,5 +94,5 @@ new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(App)
+    render: h => h(Home)
 });

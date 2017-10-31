@@ -17,13 +17,21 @@ namespace ITI.KDO.DAL
             _connectionString = connectionString;
         }
 
-        public void CreatePasswordUser(string pseudo, string email, byte[] password)
+        public void CreatePasswordUser(string pseudo, string email, string firstName, string lastName, DateTime birthDate, string phoneTel, byte[] password)
         {
             using(SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "iti.sPasswordUserCreate",
-                    new { Pseudo = pseudo, Email = email, Password = password },
+                    new {
+                        Pseudo = pseudo,
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        BirthDate = birthDate,
+                        PhoneTel = phoneTel,
+                        Password = password
+                    },
                     commandType: CommandType.StoredProcedure);
             }
         }

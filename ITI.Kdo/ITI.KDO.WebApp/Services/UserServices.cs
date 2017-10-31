@@ -1,4 +1,5 @@
 ﻿using ITI.KDO.DAL;
+using ITI.KDO.WebApp.Models.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,10 @@ namespace ITI.KDO.WebApp.Services
             _passwordHasher = passwordHasher;
         }
 
-        public bool CreatePasswordUser(string pseudo, string email, string password)
+        public bool CreatePasswordUser(RegisterViewModel model)
         {
-            if (_userGateway.FindByEmail(email) != null) return false;
-            _userGateway.CreatePasswordUser(pseudo, email, _passwordHasher.HashPassword(password));
+            if (_userGateway.FindByEmail(model.Email) != null) return false;
+            _userGateway.CreatePasswordUser(model.Pseudo, model.Email, model.FirstName, model.LastName, model.BirthDate, model.PhoneTel, _passwordHasher.HashPassword(model.Password));
 
             return true;
         }

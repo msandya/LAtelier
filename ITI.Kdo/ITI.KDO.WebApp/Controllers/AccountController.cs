@@ -109,7 +109,7 @@ namespace ITI.KDO.WebApp.Controllers
                     ModelState.AddModelError(string.Empty, "An account with this nickname already exists.");
                     return View(model);
                 }
-                _userService.CreatePasswordUser(model.Pseudo, model.Email, model.Password);
+                _userService.CreatePasswordUser(model);
                 User user = _userService.FindUserByEmail(model.Email);
                 await SignIn(user.Email, user.UserId.ToString());
                 return RedirectToAction(nameof(Authenticated));
