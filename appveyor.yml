@@ -2,8 +2,6 @@
 version: build{build}
 branches:
   only:
-  - master
-  - develop
   - CI
 environment:
   MYGET_PREVIEW_API_KEY:
