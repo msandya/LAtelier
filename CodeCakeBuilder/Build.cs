@@ -125,7 +125,7 @@ namespace CodeCake
                              s.Configuration = configuration;
                          } ) );
                  } );
-
+			/*
             Task( "Unit-Testing" )
                 .IsDependentOn( "Build-With-Version" )
                 .Does( () =>
@@ -140,7 +140,7 @@ namespace CodeCake
                     Cake.Information( "Testing: {0}", string.Join( ", ", testNetFrameworkDlls.Select( p => p.GetFilename().ToString() ) ) );
                     Cake.NUnit( testNetFrameworkDlls, new NUnitSettings { Framework = "v4.5" } );
                 } );
-
+			*/
             Task( "Create-NuGet-Packages" )
                 .WithCriteria( () => gitInfo.IsValid )
                 .IsDependentOn( "Unit-Testing" )
