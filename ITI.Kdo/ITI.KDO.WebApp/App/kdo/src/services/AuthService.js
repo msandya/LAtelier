@@ -60,10 +60,7 @@ class AuthService {
         else if (data.type == 'signedOut') this.onSignedOut();
     }
 
-    login(selectedProvider) {
-        var provider = this.providers[selectedProvider];
-        var popup = window.open(provider.endpoint, "Sign In KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
-    }
+
 
     registerAuthenticatedCallback(cb) {
         this.authenticatedCallbacks.push(cb);
@@ -79,6 +76,11 @@ class AuthService {
         for (var cb of this.authenticatedCallbacks) {
             cb();
         }
+    }
+
+    login(selectedProvider) {
+        var provider = this.providers[selectedProvider];
+        var popup = window.open(provider.endpoint, "Sign In KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
     }
 
     modifyPassword() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is Test VUE.</h1>
+    <h1>You're connected.</h1>
   </div>
 </template>
 

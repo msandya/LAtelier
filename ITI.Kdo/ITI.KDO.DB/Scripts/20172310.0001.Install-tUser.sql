@@ -14,5 +14,5 @@
 	constraint CK_tUser_Pseudo check(Pseudo <> N'')
 );
 
-insert into iti.tUser(Pseudo, FirstName, LastName, Email) 
+insert into iti.tUser(Pseudo, FirstName, LastName, Email)
 values				 ('N'   , 'N'      , 'N'     , 'N');

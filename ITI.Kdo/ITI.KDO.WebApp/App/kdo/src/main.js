@@ -57,6 +57,8 @@ const router = new VueRouter({
 
         { path: '', component: Home, beforeEnter: requireAuth },
 
+        { path: '/test', component: Test, beforeEnter: requireAuth },
+
         //{ path: '/users/information', component: User, beforeEnter: requireAuth },
         //{ path: '/users/users/modiMP', component: UserModificationMP, beforeEnter: requireAuth },
 
@@ -88,6 +90,19 @@ AuthService.modifyPasswordEndpoint = '/Account/ModifyPassword';
 
 
 AuthService.appRedirect = () => router.replace('/');
+
+
+AuthService.providers = {
+    'Base': {
+        endpoint: '/Account/Login'
+    },
+    'Google': {
+        endpoint: '/Account/ExternalLogin?provider=Google'
+    },
+    'GitHub': {
+        endpoint: '/Account/ExternalLogin?provider=GitHub'
+    },
+};
 
 // Creation of the root Vue of the application
 new Vue({

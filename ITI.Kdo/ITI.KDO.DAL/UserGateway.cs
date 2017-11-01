@@ -62,13 +62,26 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public User FindUserPasswordHashed(int userId)
+        /*public User FindUserPasswordHashed(int userId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 return con.Query<User>(
                     @"select u.Password
                       from iti.vUser u
+                      where UserId = @UserId",
+                    new { UserId = userId })
+                    .FirstOrDefault();
+            }
+        }*/
+
+        public User FindUserPasswordHashed(int userId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<User>(
+                    @"select [Password]
+                      from iti.tPasswordUser
                       where UserId = @UserId",
                     new { UserId = userId })
                     .FirstOrDefault();
@@ -128,19 +141,6 @@ namespace ITI.KDO.DAL
                       from iti.vUser u
                       where Pseudo = @Pseudo",
                     new { Pseudo = pseudo })
-                    .FirstOrDefault();
-            }
-        }
-
-        public User FindUserPassword(int userId)
-        {
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                return con.Query<User>(
-                    @"select [Password]
-                      from iti.tPasswordUser
-                      where UserId = @UserId",
-                    new { UserId = userId })
                     .FirstOrDefault();
             }
         }

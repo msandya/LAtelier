@@ -39,6 +39,7 @@ namespace ITI.KDO.WebApp.Services
             User user = _userGateway.FindByEmail(email);
             if (user != null)
             {
+                user.Password = _userGateway.FindUserPasswordHashed(user.UserId).Password;
                 if(_passwordHasher.VerifyHashedPassword(user.Password, password) == PasswordVerificationResult.Success)
                     return user;
             } 

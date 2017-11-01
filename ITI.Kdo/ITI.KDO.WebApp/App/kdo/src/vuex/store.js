@@ -6,7 +6,7 @@ import * as getters from './getters';
 
 import app from './modules/app';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 

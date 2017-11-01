@@ -1,3 +1,5 @@
+<!--**********VUE**************-->
+<!--The view, which is just a declarative mapping of the state;-->
 <template>
   <div>
     <h1>This is app.</h1>
@@ -11,12 +13,22 @@ import { mapGetters, mapActions } from "vuex";
 import "../directives/requiredProviders";
 
 export default {
+  //*********STATE*********
+  //The state, which is the source of truth that drives our app;
   data() {
     return {
       userEmail: null
     };
   },
 
+
+  ///******ACTION********
+  //The actions, which are the possible ways the state could change in reaction to user inputs from the view.
+  methods:{
+
+  },
+
+  
   computed: {
     ...mapGetters(["isLoading"]),
     auth: () => AuthService
