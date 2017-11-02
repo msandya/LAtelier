@@ -2,7 +2,7 @@
 version: build{build}
 branches:
   only:
-  - CI
+  - dev
 environment:
   MYGET_PREVIEW_API_KEY:
     secure: yiu1sOdhAl87/xiVWTZy0qjvj0K9Ofihx8EKknMCM0zBj7ZY9Pg+Y6jH5RoqHqq7
