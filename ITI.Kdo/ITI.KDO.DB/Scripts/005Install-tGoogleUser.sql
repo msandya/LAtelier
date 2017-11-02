@@ -3,7 +3,7 @@ create table dbo.tGoogleUser
     
 	UserId      int,
     GoogleId    int,
-    AccessToken varchar(64) not null,
+    RefreshToken  varchar(64) not null,
 	
 	
 	constraint PK_tGoogleUser primary key(UserId),
@@ -11,4 +11,4 @@ create table dbo.tGoogleUser
     constraint UK_tGoogleUser_GoogleId unique(GoogleId)
 );
 
-insert into dbo.tGoogleUser(UserId, GoogleId, AccessToken) values(0, 0, '');
+insert into dbo.tGoogleUser(UserId, GoogleId, RefreshToken) values(0, 0, '');
