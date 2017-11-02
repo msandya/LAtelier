@@ -137,7 +137,7 @@ namespace CodeCake
                     var testNetFrameworkDlls = testProjects
                         .Where( p => p.Name.EndsWith( ".NetFramework" ) )
                         .Select( p => p.Path.GetDirectory().CombineWithFilePath( "bin/" + configuration + "/net461/" + p.Name + ".dll" ) );
-					if( !( testNetFrameworkDlls == null || testNetFrameworkDlls.size == 0))
+					if( testNetFrameworkDlls != null || testNetFrameworkDlls[0] != null))
 					{
 						Cake.Information( "Testing: {0}", string.Join( ", ", testNetFrameworkDlls.Select( p => p.GetFilename().ToString() ) ) );
 						Cake.NUnit( testNetFrameworkDlls, new NUnitSettings { Framework = "v4.5" } );
