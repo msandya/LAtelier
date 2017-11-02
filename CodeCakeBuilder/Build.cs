@@ -132,16 +132,18 @@ namespace CodeCake
                 {
                     Cake.DotNetCoreRestore();
 
+                    /*
                     var testProjects = projects.Where( p => p.Path.Segments.Contains( "Tests" ) );
 
                     var testNetFrameworkDlls = testProjects
                         .Where( p => p.Name.EndsWith( ".NetFramework" ) )
                         .Select( p => p.Path.GetDirectory().CombineWithFilePath( "bin/" + configuration + "/net461/" + p.Name + ".dll" ) );
-					if( testNetFrameworkDlls != null || 1 == 2)
+					if( testNetFrameworkDlls != null)
 					{
 						Cake.Information( "Testing: {0}", string.Join( ", ", testNetFrameworkDlls.Select( p => p.GetFilename().ToString() ) ) );
 						Cake.NUnit( testNetFrameworkDlls, new NUnitSettings { Framework = "v4.5" } );
 					}
+                    */
                 } );
 			
             Task( "Create-NuGet-Packages" )
