@@ -9,13 +9,9 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Pseudo")]
-        public string Pseudo { get; set; }
-
-        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Mail")]
+        public string Mail { get; set; }
 
         [Required]
         [Display(Name = "FirstName")]
@@ -27,13 +23,18 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "BirthDate")]
-        public DateTime BirthDate { get; set; }
+        [Display(Name = "Birthdate")]
+        public DateTime Birthdate { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-        [Display(Name = "PhoneTel")]
-        public string PhoneTel { get; set; }
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [Display(Name = "Photo")]
+        public string Photo { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

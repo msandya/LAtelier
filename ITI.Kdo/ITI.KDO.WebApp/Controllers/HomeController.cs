@@ -24,15 +24,15 @@ namespace ITI.KDO.WebApp.Controllers
             if (identity != null)
             {
                 string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
-                string email = identity.FindFirst(ClaimTypes.Email).Value;
-                Token token = _tokenService.GenerateToken(userId, email);
+                string mail = identity.FindFirst(ClaimTypes.Email).Value;
+                Token token = _tokenService.GenerateToken(userId, mail);
                 ViewData["Token"] = token;
-                ViewData["Email"] = email;
+                ViewData["Mail"] = mail;
             }
             else
             {
                 ViewData["Token"] = null;
-                ViewData["Email"] = null;
+                ViewData["Mail"] = null;
             }
 
             ViewData["NoLayout"] = true;

@@ -12,7 +12,7 @@ namespace ITI.KDO.DB
 
         public static int Main(string[] args)
         {
-            var connectionString = Configuration["ConnectionStrings:ITI.KDO"];
+            var connectionString = Configuration["ConnectionStrings:KDODB"];
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 

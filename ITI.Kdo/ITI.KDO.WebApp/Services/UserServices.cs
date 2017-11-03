@@ -21,22 +21,22 @@ namespace ITI.KDO.WebApp.Services
 
         public bool CreatePasswordUser(RegisterViewModel model)
         {
-            if (_userGateway.FindByEmail(model.Email) != null) return false;
-            _userGateway.CreatePasswordUser(model.Pseudo, model.Email, model.FirstName, model.LastName, model.BirthDate, model.PhoneTel, _passwordHasher.HashPassword(model.Password));
+            if (_userGateway.FindByMail(model.Mail) != null) return false;
+            _userGateway.CreatePasswordUser(model.Mail, model.FirstName, model.LastName, model.Birthdate, model.Phone, _passwordHasher.HashPassword(model.Password), model.Photo);
 
             return true;
         }
 
-        public User FindUserPasswordHashed(string email)
+        public User FindUserPasswordHashed(string mail)
         {
-            User user = _userGateway.FindByEmail(email);
+            User user = _userGateway.FindByMail(mail);
             user.Password = _userGateway.FindUserPasswordHashed(user.UserId).Password;
             return user;
         }
 
-        public User FindUser(string email, string password)
+        public User FindUser(string mail, string password)
         {
-            User user = _userGateway.FindByEmail(email);
+            User user = _userGateway.FindByMail(mail);
             if (user != null)
             {
                 user.Password = _userGateway.FindUserPasswordHashed(user.UserId).Password;
@@ -46,9 +46,7 @@ namespace ITI.KDO.WebApp.Services
             return null;
         }
 
-        public User FindUserByPseudo(string pseudo) => _userGateway.FindByPseudo(pseudo);
-
-        public User FindUserByEmail(string email) => _userGateway.FindByEmail(email);
+        public User FindUserByMail(string mail) => _userGateway.FindByMail(mail);
 
         public User FindUserById(int userId) => _userGateway.FindById(userId);
 
@@ -64,28 +62,29 @@ namespace ITI.KDO.WebApp.Services
             return Result.Success(Status.Ok, _userGateway.GetAll());
         }
 
-        public Result<User> CreateUser(string pseudo, string firstName, string lastName, string email, DateTime birthDate, string phoneTel)
+        public Result<User> CreateUser(string firstName, string lastName, string mail, DateTime birthdate, string phone, string photo)
         {
-            if (!IsNameValid(pseudo)) return Result.Failure<User>(Status.BadRequest, "The username is invalid.");
             if (!IsNameValid(firstName)) return Result.Failure<User>(Status.BadRequest, "The first name is invalid.");
             if (!IsNameValid(lastName)) return Result.Failure<User>(Status.BadRequest, "The last name is invalid.");
-            if (!IsNameValid(email)) return Result.Failure<User>(Status.BadRequest, "The email is invalid.");
-            if (!IsPhoneTelValid(phoneTel)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (!IsNameValid(mail)) return Result.Failure<User>(Status.BadRequest, "The mail is invalid.");
+            if (!IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (!IsPhotoValid(photo)) return Result.Failure<User>(Status.BadRequest, "The photo  is invalid.");
 
-            _userGateway.Create(pseudo, firstName, lastName, email, birthDate, phoneTel);
-            User user = _userGateway.FindByPseudo(pseudo);
+
+            _userGateway.Create(firstName, lastName, mail, birthdate, phone, photo);
+            User user = _userGateway.FindByMail(mail);
             return Result.Success(Status.Ok, user);
         }
 
-        public Result<User> UpdateUser(int userId, string pseudo, string firstName, string lastName, string email, DateTime birthDate, string phoneTel)
+        public Result<User> UpdateUser(int userId, string firstName, string lastName, string mail, DateTime birthdate, string phone, string photo)
         {
-            if (!IsNameValid(pseudo)) return Result.Failure<User>(Status.BadRequest, "The username is invalid.");
             if (!IsNameValid(firstName)) return Result.Failure<User>(Status.BadRequest, "The first name is invalid.");
             if (!IsNameValid(lastName)) return Result.Failure<User>(Status.BadRequest, "The last name is invalid.");
-            if (!IsNameValid(email)) return Result.Failure<User>(Status.BadRequest, "The email is invalid.");
-            if (!IsPhoneTelValid(phoneTel)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (!IsNameValid(mail)) return Result.Failure<User>(Status.BadRequest, "The mail is invalid.");
+            if (!IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (!IsPhotoValid(photo)) return Result.Failure<User>(Status.BadRequest, "The photo is invalid.");
 
-            _userGateway.Update(userId, pseudo, firstName, lastName, email, birthDate, phoneTel);
+            _userGateway.Update(userId, firstName, lastName, mail, birthdate, phone, photo);
             User user = _userGateway.FindById(userId);
             return Result.Success(Status.Ok, user);
         }
@@ -100,5 +99,9 @@ namespace ITI.KDO.WebApp.Services
         bool IsNameValid(string nameString) => !string.IsNullOrEmpty(nameString);
 
         bool IsPhoneTelValid(string phoneTel) => !Regex.IsMatch(phoneTel, @"^[a-zA-Z]+$");
+
+        bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
+
+
     }
 }

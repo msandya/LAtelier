@@ -1,6 +1,7 @@
 create view dbo.vUser
 as
 	select
+		UserId = u.UserId,
 		FirstName = u.FirstName,
 		LastName = u.LastName,
 		Birthdate = u.Birthdate,
