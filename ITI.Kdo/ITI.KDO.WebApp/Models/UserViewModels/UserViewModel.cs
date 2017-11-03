@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ITI.KDO.DAL
+namespace ITI.KDO.WebApp.Models.UserViewModels
 {
-    public class User
+    public class UserViewModel
     {
         public int UserId { get; set; }
 
