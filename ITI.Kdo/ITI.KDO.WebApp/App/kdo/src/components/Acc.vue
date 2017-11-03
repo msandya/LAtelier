@@ -1,0 +1,55 @@
+<template>
+ <div>
+ <h1>Bonjour</h1>
+  </div>
+</template>
+
+<script>
+import AuthService from "../services/AuthService";
+import UserApiService from "../services/AuthService";
+import { mapGetters, mapActions } from "vuex";
+import "../directives/requiredProviders";
+
+export default {
+  data() {
+    return {
+      userEmail: null
+    };
+  },
+
+  computed: {
+    ...mapGetters(["isLoading"]),
+    auth: () => AuthService
+  },
+
+  methods: {
+    login() {
+      this.$router.replace('/login');
+    },
+
+    register() {
+      AuthService.register();
+    }
+  }
+
+  //async mounted() {
+  //this.userEmail = AuthService.emailUser();
+  //console.log(this.userEmail);
+};
+</script>
+
+<style lang="less" scoped>
+.progress {
+  margin: 0px;
+  padding: 0px;
+  height: 5px;
+}
+
+a.router-link-active {
+  font-weight: bold;
+}
+</style>
+
+<style lang="less">
+@import "../styles/global.less";
+</style>
