@@ -1,8 +1,11 @@
 import Vue from 'vue';
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap';
 import store from './vuex/store';
 import VueRouter from 'vue-router';
 
 import App from './components/App.vue';
+import Acc from './components/Acc.vue';
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Logout from './components/Logout.vue';
@@ -54,8 +57,10 @@ const router = new VueRouter({
     routes: [
         { path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
+        { path: '/acc', component: Acc, beforeEnter: requireAuth },
 
-        { path: '', component: Home, beforeEnter: requireAuth },
+
+        { path: '/home', component: Home, beforeEnter: requireAuth },
 
         { path: '/test', component: Test, beforeEnter: requireAuth },
 

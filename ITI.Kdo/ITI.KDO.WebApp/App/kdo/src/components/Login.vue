@@ -39,7 +39,7 @@ export default {
 
     onAuthenticated() {
       console.log("you're connected.");
-      this.$router.replace("/");
+      this.$router.replace("");
     }
   }
 };
