@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import $ from 'jquery';
+import Vuex from 'vuex';
 import 'bootstrap/dist/js/bootstrap';
 import store from './vuex/store';
 import VueRouter from 'vue-router';
@@ -76,7 +77,7 @@ const router = new VueRouter({
  */
 
 // Allowed urls to access the application (if your website is http://mywebsite.com, you have to add it)
-AuthService.allowedOrigins = ['http://localhost:5000', /* 'http://mywebsite.com' */ ];
+AuthService.allowedOrigins = ['http://localhost:54822', /* 'http://mywebsite.com' */ ];
 
 // Server-side endpoint to logout
 AuthService.logoutEndpoint = '/Account/LogOff';
@@ -94,7 +95,6 @@ AuthService.registerProjectEndpoint = '/Project/Register';
 AuthService.modifyPasswordEndpoint = '/Account/ModifyPassword';
 
 
-AuthService.appRedirect = () => router.replace('/');
 
 
 AuthService.providers = {
@@ -108,6 +108,8 @@ AuthService.providers = {
         endpoint: '/Account/ExternalLogin?provider=GitHub'
     },
 };
+AuthService.appRedirect = () => router.replace('/');
+
 
 // Creation of the root Vue of the application
 new Vue({

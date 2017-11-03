@@ -15,7 +15,6 @@
             <a href="#" @click="register()">Sign Up</a>
          </ul>
           </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="iti-navbar-collapse" v-if="auth.isConnected">
 
