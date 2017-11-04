@@ -6,8 +6,6 @@ namespace ITI.KDO.WebApp.Models.UserViewModels
     {
         public int UserId { get; set; }
 
-        public string Pseudo { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -16,7 +14,7 @@ namespace ITI.KDO.WebApp.Models.UserViewModels
 
         public DateTime BirthDate { get; set; }
 
-        public string PhoneTel { get; set; }
+        public int Phone { get; set; }
 
         public byte[] Password { get; set; }
     }

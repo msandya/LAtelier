@@ -8,8 +8,6 @@ namespace ITI.KDO.DAL
     {
         public int UserId { get; set; }
 
-        public string Pseudo { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -18,8 +16,16 @@ namespace ITI.KDO.DAL
 
         public DateTime BirthDate { get; set; }
 
-        public string PhoneTel { get; set; }
+        public int Phone { get; set; }
 
         public byte[] Password { get; set; }
+
+        public string GoogleRefreshToken { get; set; }
+
+        public string FacebookRefreshToken { get; set; }
+
+        public int GoogleId { get; set; }
+
+        public int FacebookId { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-create procedure dbo.sSelectWithPaging
+create procedure dbo.sSelectPresentWithPagingForUserId
 (
     @PageNumber int,
     @RowsPerPage int,
