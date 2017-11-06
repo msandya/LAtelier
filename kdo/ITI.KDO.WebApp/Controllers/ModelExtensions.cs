@@ -13,11 +13,11 @@ namespace ITI.KDO.WebApp.Controllers
         {
             return new UserViewModel
             {
-                Mail = @this.Mail,
+                Email = @this.Email,
                 FirstName = @this.FirstName,
                 LastName = @this.LastName,
                 Birthdate = @this.Birthdate,
-                Phone = @this.Phone,
+                Phone = @this.Phone,                
                 Photo = @this.Photo
             };
         }

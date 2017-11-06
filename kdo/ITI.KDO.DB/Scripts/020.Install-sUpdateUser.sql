@@ -4,7 +4,7 @@ create proc dbo.sUpdateUser
 	@FirstName nvarchar(32),
 	@LastName nvarchar(32),
 	@Birthdate datetime2,
-	@Mail nvarchar(32),
+	@Email nvarchar(32),
 	@Phone integer,
 	@Photo nvarchar(32)
 
@@ -15,7 +15,7 @@ begin
 	set FirstName = @FirstName,
 		LastName = @LastName,
 		Birthdate = @Birthdate,
-		Mail = @Mail,
+		Email = @Email,
 		Phone = @Phone,
 		Photo = @Photo  
 	where UserId = @UserId;

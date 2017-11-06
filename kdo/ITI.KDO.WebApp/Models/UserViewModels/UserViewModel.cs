@@ -10,11 +10,11 @@ namespace ITI.KDO.WebApp.Models.UserViewModels
 
         public string LastName { get; set; }
 
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         public DateTime Birthdate { get; set; }
 
-        public string Phone { get; set; }
+        public int Phone { get; set; }
 
         public string Photo { get; set; }
 

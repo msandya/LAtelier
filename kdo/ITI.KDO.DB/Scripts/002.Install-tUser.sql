@@ -4,7 +4,7 @@ create table dbo.tUser
     FirstName nvarchar(32) not null,
     LastName  nvarchar(32) not null,
 	Birthdate datetime2 not null,
-	Mail nvarchar(32) not null,
+	Email nvarchar(32) not null,
 	Phone int not null,
 	Photo nvarchar(max) not null
 
@@ -14,5 +14,5 @@ create table dbo.tUser
     constraint CK_tUsers_LastName check(LastName <> N'')
 );
 
-insert into dbo.tUser(FirstName, LastName, Birthdate, Mail, Phone, Photo)
+insert into dbo.tUser(FirstName, LastName, Birthdate, Email, Phone, Photo)
                   values('John', 'Doe', '0001-01-01', 'jiji@outlook.fr', 0712548565, 'aze');

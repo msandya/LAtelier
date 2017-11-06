@@ -24,9 +24,9 @@ namespace ITI.KDO.DAL
                 con.Execute(
                     "dbo.sPasswordUserCreate",
                     new {
-                        Mail = mail,
                         FirstName = firstName,
                         LastName = lastName,
+                        Email = email,
                         Birthdate = birthdate,
                         Phone = phone,
                         Password = password,
@@ -46,6 +46,50 @@ namespace ITI.KDO.DAL
             }
         }*/
 
+
+        public User FindByGoogleId(int googleId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<User>(
+                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.GoogleId = @GoogleId",
+                        new { GoogleId = googleId })
+                    .FirstOrDefault();
+            }
+        }
+
+        public User FindByFacebookId(int facebookId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<User>(
+                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.FacebookId = @FacebookId",
+                        new { FacebookId = facebookId })
+                    .FirstOrDefault();
+            }
+        }
+
+        public void CreateGoogleUser(string email, string googleId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sGoogleUserCreate",
+                    new { Email = email, GoogleId = googleId, RefreshToken = refreshToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void CreateFacebookUser(string email, string facebookId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sFacebookUserCreate",
+                    new { Email = email, FacebookId = facebookId, RefreshToken = refreshToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
         public IEnumerable<User> GetAll()
         {
             using(SqlConnection con = new SqlConnection(_connectionString))
@@ -54,7 +98,7 @@ namespace ITI.KDO.DAL
                     @"select u.UserId,
                              u.FirstName,
                              u.LastName,
-                             u.Mail,
+                             u.Email,
                              u.Birthdate,
                              u.Phone,
                              u.Photo
@@ -96,8 +140,8 @@ namespace ITI.KDO.DAL
                     @"select u.UserId,
                              u.FirstName,
                              u.LastName,
-                             u.Mail,
-                             u.Birthdate,
+                             u.Email,
+                             u.BirthDate,
                              u.Phone,
                              u.Photo
                       from dbo.vUser u
@@ -107,7 +151,7 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public User FindByMail(string mail)
+        public User FindByEmail(string email)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -115,43 +159,25 @@ namespace ITI.KDO.DAL
                     @"select u.UserId,
                              u.FirstName,
                              u.LastName,
-                             u.Mail,
-                             u.Birthdate,
+                             u.Email,
+                             u.BirthDate,
                              u.Phone,
                              u.Photo
-                      from dbo.vUser u
-                      where Mail = @Mail",
-                    new { Mail = mail })
+                      from iti.vUser u
+                      where Email = @Email",
+                    new { Email = email })
                     .FirstOrDefault();
             }
         }
 
-        //public User FindByPseudo(string pseudo)
-        //{
-        //    using (SqlConnection con = new SqlConnection(_connectionString))
-        //    {
-        //        return con.Query<User>(
-        //            @"select u.UserId,
-        //                     u.Pseudo,
-        //                     u.FirstName,
-        //                     u.LastName,
-        //                     u.Mail,
-        //                     u.BirthDate,
-        //                     u.PhoneTel
-        //              from dbo.vUser u
-        //              where Pseudo = @Pseudo",
-        //            new { Pseudo = pseudo })
-        //            .FirstOrDefault();
-        //    }
-        //}
-
-        public void Create( string firstName, string lastName, string mail, DateTime birthdate, string phone, string photo)
+       
+        public void Create( string firstName, string lastName, string email, DateTime birthdate, string phone, string photo)
         {
             using(SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sUserCreate",
-                    new {  FirstName = firstName, LastName = lastName, Mail = mail, BirthDate = birthdate, Phone = phone, Photo = photo },
+                    new { FirstName = firstName, LastName = lastName, Email = email, BirthDate = birthDate, Phone = phone },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -167,13 +193,13 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public void Update(int userId, string firstName, string lastName, string mail, DateTime birthdate, string phone, string photo)
+        public void Update(int userId, string firstName, string lastName, string email, DateTime birthdate, string phone, string photo)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
-                    "sUserUpdate",
-                    new { UserId = userId, FirstName = firstName, LastName = lastName, Mail = mail, Birthdate = birthdate, Phone = phone, Photo = photo },
+                    "dbo.sUserUpdate",
+                    new { UserId = userId, FirstName = firstName, LastName = lastName, Email = email, Birthdate = birthdate, Phone = phone, Photo = photo },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -188,5 +214,7 @@ namespace ITI.KDO.DAL
                     commandType: CommandType.StoredProcedure);
             }
         }
+
+
     }
 }

@@ -21,5 +21,13 @@ namespace ITI.KDO.DAL
         public string Photo { get; set; }
 
         public byte[] Password { get; set; }
+
+        public string GoogleRefreshToken { get; set; }
+
+        public string FacebookRefreshToken { get; set; }
+
+        public int GoogleId { get; set; }
+
+        public int FacebookId { get; set; }
     }
 }

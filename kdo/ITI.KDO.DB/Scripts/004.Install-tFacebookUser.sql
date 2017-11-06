@@ -3,7 +3,7 @@ create table dbo.tFacebookUser
     
 	UserId      int,
     FacebookId    int,
-    AccessToken varchar(64) not null,
+    RefreshToken varchar(64) not null,
 	
 	
 	constraint PK_tFacebookUser primary key(UserId),
@@ -11,4 +11,4 @@ create table dbo.tFacebookUser
     constraint UK_tFacebookUser_FacebookbId unique(FacebookId)
 );
 
-insert into dbo.tFacebookUser(UserId, FacebookId, AccessToken) values(0, 0, '');
+insert into dbo.tFacebookUser(UserId, FacebookId, RefreshToken) values(0, 0, '');
