@@ -40,11 +40,11 @@ namespace ITI.KDO.WebApp.Controllers
             Console.WriteLine("Modify Password");
             if (ModelState.IsValid)
             {
-                User user = _userService.FindUser(model.Mail, model.OldPassword);
+                User user = _userService.FindUser(model.Email, model.OldPassword);
                 Console.WriteLine("User is authenticated {0}", user != null);
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid mail or password attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid email or password attempt.");
                     return View(model);
                 }
                 if (model.NewPassword != model.NewPasswordConfirm)
@@ -72,14 +72,14 @@ namespace ITI.KDO.WebApp.Controllers
             Console.WriteLine("Login");
             if (ModelState.IsValid)
             {
-                User user = _userService.FindUser(model.Mail,model.Password);
+                User user = _userService.FindUser(model.Email,model.Password);
                 Console.WriteLine("User is authenticated {0}", user != null);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
-                await SignIn(user.Mail, user.UserId.ToString());
+                await SignIn(user.Email, user.UserId.ToString());
                 return RedirectToAction(nameof(Authenticated));
             }
             return View();
@@ -99,14 +99,14 @@ namespace ITI.KDO.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_userService.FindUserByMail(model.Mail) != null )
+                if (_userService.FindUserByEmail(model.Email) != null )
                 {
-                    ModelState.AddModelError(string.Empty, "An account with this mail already exists.");
+                    ModelState.AddModelError(string.Empty, "An account with this email already exists.");
                     return View(model);
                 }
                 _userService.CreatePasswordUser(model);
-                User user = _userService.FindUserByMail(model.Mail);
-                await SignIn(user.Mail, user.UserId.ToString());
+                User user = _userService.FindUserByEmail(model.Email);
+                await SignIn(user.Email, user.UserId.ToString());
                 return RedirectToAction(nameof(Authenticated));
             }
             return View(model);
@@ -126,22 +126,22 @@ namespace ITI.KDO.WebApp.Controllers
         public IActionResult Authenticated()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            string mail = User.FindFirst(ClaimTypes.Email).Value;
-            Token token = _tokenService.GenerateToken(userId, mail);
+            string email = User.FindFirst(ClaimTypes.Email).Value;
+            Token token = _tokenService.GenerateToken(userId, email);
             ViewData["BreachPadding"] = GetBreachPadding();
             ViewData["Token"] = token;
-            ViewData["Mail"] = mail;
+            ViewData["Email"] = email;
             ViewData["NoLayout"] = true;
             return View();
         }
 
 
 
-        async Task SignIn(string mail, string userId)
+        async Task SignIn(string email, string userId)
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim( ClaimTypes.Email, mail, ClaimValueTypes.String ),
+                new Claim( ClaimTypes.Email, email, ClaimValueTypes.String ),
                 new Claim( ClaimTypes.NameIdentifier, userId.ToString(), ClaimValueTypes.String )
             };
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty);

@@ -26,7 +26,7 @@
 
         methods: {
             onSignedOut() {
-                this.$router.replace('/');
+                this.$router.replace('/appDefault');
             }
         }
     }

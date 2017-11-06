@@ -15,6 +15,7 @@
             <a href="#" @click="register()">Sign Up</a>
          </ul>
           </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="iti-navbar-collapse" v-if="auth.isConnected">
 
@@ -25,7 +26,9 @@
               </a>
             <ul class="dropdown-menu" role="menu">
             <li><a href="users/information">Profil</a></li>
-            <li><router-link to="/logout">Se déconnecter</router-link></li>
+            <li><a href="#" @click="modifyPassword()">Modify Password</a></li>
+            <li><a href="#" @click="logout()">Se déconnecter</a></li>
+            
           </ul>
             </li>
           </ul>
@@ -59,6 +62,8 @@ import $ from 'jquery'
 import UserApiService from "../services/AuthService";
 import { mapGetters, mapActions } from "vuex";
 import "../directives/requiredProviders";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 export default {
   data() {
@@ -79,12 +84,16 @@ export default {
 
     register() {
       AuthService.register();
+    },
+
+    modifyPassword(){
+      AuthService.modifyPassword();
+    },
+
+    logout(){
+      this.$router.replace('/logout');
     }
   }
-
-  //async mounted() {
-  //this.userEmail = AuthService.emailUser();
-  //console.log(this.userEmail);
 };
 </script>
 

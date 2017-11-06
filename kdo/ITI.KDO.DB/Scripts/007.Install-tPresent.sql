@@ -7,7 +7,6 @@ create table dbo.tPresent
 	CategoryPresentId int not null,
 	UserId int not null
 
-
     constraint PK_tPresent_PresentId primary key(PresentId),
     constraint CK_tPresent_CategoryPresentId foreign key(CategoryPresentId) references dbo.tCategoryPresent(CategoryPresentId),
 	constraint FK_tPresent_UserId foreign key(UserId) references dbo.tUser(UserId),

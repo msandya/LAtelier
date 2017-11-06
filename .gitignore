@@ -6,6 +6,8 @@ packages/
 **/obj/
 **/app/node_modules
 **/app/dll/
+**/appsettings.json
+
 #src/[web application name]/wwwroot/
 
 Private/

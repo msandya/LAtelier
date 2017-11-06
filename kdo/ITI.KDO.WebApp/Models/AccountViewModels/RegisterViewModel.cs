@@ -10,8 +10,8 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Mail")]
-        public string Mail { get; set; }
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [Display(Name = "FirstName")]

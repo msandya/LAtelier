@@ -10,7 +10,7 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

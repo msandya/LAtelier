@@ -7,9 +7,12 @@ import VueRouter from 'vue-router';
 
 import App from './components/App.vue';
 import Acc from './components/Acc.vue';
+
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Logout from './components/Logout.vue';
+
+import AppDefault from './components/AppDefault.vue';
 
 import Test from './components/Test.vue';
 //import Register from './components/Register.vue';
@@ -34,7 +37,7 @@ function requireAuth(to, from, next) {
     console.log(AuthService.isConnected);
     if (!AuthService.isConnected) {
         next({
-            path: '/login',
+            path: '/appDefault',
             query: { redirect: to.fullPath }
         });
         return;
@@ -60,8 +63,9 @@ const router = new VueRouter({
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
         { path: '/acc', component: Acc, beforeEnter: requireAuth },
 
+        { path: '/appDefault', component: AppDefault },
 
-        { path: '/home', component: Home, beforeEnter: requireAuth },
+        { path: '', component: App, beforeEnter: requireAuth },
 
         { path: '/test', component: Test, beforeEnter: requireAuth },
 
@@ -95,8 +99,6 @@ AuthService.registerProjectEndpoint = '/Project/Register';
 AuthService.modifyPasswordEndpoint = '/Account/ModifyPassword';
 
 
-
-
 AuthService.providers = {
     'Base': {
         endpoint: '/Account/Login'
@@ -108,7 +110,7 @@ AuthService.providers = {
         endpoint: '/Account/ExternalLogin?provider=GitHub'
     },
 };
-AuthService.appRedirect = () => router.replace('/');
+AuthService.appRedirect = () => router.replace('/app');
 
 
 // Creation of the root Vue of the application

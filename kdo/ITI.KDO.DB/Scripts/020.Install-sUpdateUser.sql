@@ -5,7 +5,7 @@ create proc dbo.sUpdateUser
 	@LastName nvarchar(32),
 	@Birthdate datetime2,
 	@Email nvarchar(32),
-	@Phone integer,
+	@Phone nvarchar(12),
 	@Photo nvarchar(32)
 
 )

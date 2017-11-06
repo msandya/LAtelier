@@ -14,7 +14,7 @@ namespace ITI.KDO.WebApp.Models.UserViewModels
 
         public DateTime Birthdate { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string Photo { get; set; }
 

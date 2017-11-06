@@ -21,10 +21,6 @@ export default {
     ...mapGetters(["isLoading"]),
     auth: () => AuthService
   }
-
-  //async mounted() {
-  //this.userEmail = AuthService.emailUser();
-  //console.log(this.userEmail);
 };
 </script>
 

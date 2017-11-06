@@ -1,7 +1,7 @@
 <template>
- <div>
- <h1>Bonjour</h1>
-  </div>
+    <div>
+        <h1>Bonjour</h1>
+    </div>
 </template>
 
 <script>
@@ -31,10 +31,6 @@ export default {
       AuthService.register();
     }
   }
-
-  //async mounted() {
-  //this.userEmail = AuthService.emailUser();
-  //console.log(this.userEmail);
 };
 </script>
 

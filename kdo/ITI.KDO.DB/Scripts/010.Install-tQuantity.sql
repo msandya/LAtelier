@@ -1,8 +1,7 @@
 create table dbo.tQuantity
-(
-    
+(    
 	QuantityId int identity(0, 1),
-	Quandtity int not null,
+	Quantity int not null,
 	RecipientId int not null,
 	NominatorId int not null,
 	EventId int not null,

@@ -7,7 +7,6 @@ class AuthService {
         this.appRedirect = () => null;
         this.authenticatedCallbacks = [];
         this.signedOutCallbacks = [];
-
         window.addEventListener("message", (e) => this.onMessage(e), false);
     }
 
@@ -31,8 +30,12 @@ class AuthService {
 
     get email() {
         var identity = this.identity;
-
         return identity ? identity.email : null;
+    }
+
+    emailUser() {
+        var identity = this.identity;
+        return identity.email ? identity.email : null;
     }
 
     get boundProviders() {
@@ -80,7 +83,8 @@ class AuthService {
 
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
-        var popup = window.open(provider.endpoint, "Sign In KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
+        var popup = window.open(provider.endpoint, "Login to KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
+        //var popup = window.open(provider.endpoint);
     }
 
     modifyPassword() {

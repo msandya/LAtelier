@@ -6,7 +6,6 @@ create proc dbo.sUserCreate
 	@Email nvarchar(32),
 	@Phone nvarchar(12),
 	@Photo nvarchar(32)
-
 )
 as
 begin

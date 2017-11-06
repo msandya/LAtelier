@@ -1,7 +1,7 @@
 ﻿﻿@using ITI.KDO.WebApp.Services;
 @{
     Token token = (Token)ViewData["Token"];
-    string mail = (string)ViewData["Mail"];
+    string email = (string)ViewData["Email"];
 }
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
             this.ITI.KDO = KDO;
         })();
     </script>
-    @if (token != null && mail != null)
+    @if (token != null && email != null)
     {
         <script>
             (function () {
@@ -44,7 +44,7 @@
                         access_token: '@token.AccessToken',
                         expires_in: @token.ExpiresIn
                     },
-                    mail: '@mail'
+                    email: '@email'
                 });
             })();
         </script>

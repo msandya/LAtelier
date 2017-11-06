@@ -2,7 +2,7 @@
 <!--The view, which is just a declarative mapping of the state;-->
 <template>
   <div>
-    <h1>This is app.</h1>
+  <h1>This is app.</h1>
   </div>
 </template>
 
@@ -21,7 +21,6 @@ export default {
     };
   },
 
-
   ///******ACTION********
   //The actions, which are the possible ways the state could change in reaction to user inputs from the view.
   methods:{
@@ -33,10 +32,6 @@ export default {
     ...mapGetters(["isLoading"]),
     auth: () => AuthService
   }
-
-  //async mounted() {
-  //this.userEmail = AuthService.emailUser();
-  //console.log(this.userEmail);
 };
 </script>
 

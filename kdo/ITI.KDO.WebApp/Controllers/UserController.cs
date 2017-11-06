@@ -33,17 +33,17 @@ namespace ITI.KDO.WebApp.Controllers
             });
         }
 
-        [HttpGet("{mailUser}")]
-        public User GetUserByMail(string mailUser)
+        [HttpGet("{emailUser}")]
+        public User GetUserByEmail(string emailUser)
         {
-            User user = _userServices.FindUserPasswordHashed(mailUser);
+            User user = _userServices.FindUserPasswordHashed(emailUser);
             return user;
         }
 
         [HttpPut("{userId}")]
         public IActionResult UpdateUser(int userId, [FromBody] UserViewModel model)
         {
-            Result<User> result = _userServices.UpdateUser(model.UserId, model.FirstName, model.LastName, model.Mail, model.Birthdate, model.Phone, model.Photo);
+            Result<User> result = _userServices.UpdateUser(model.UserId, model.FirstName, model.LastName, model.Email, model.Birthdate, model.Phone, model.Photo);
             return this.CreateResult<User, UserViewModel>(result, o =>
             {
                 o.ToViewModel = s => s.ToUserViewModel();

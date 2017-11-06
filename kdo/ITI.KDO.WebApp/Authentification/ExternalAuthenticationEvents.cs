@@ -32,7 +32,7 @@ namespace ITI.KDO.WebApp.Authentication
             List<Claim> claims = new List<Claim>
             {
                 new Claim( ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String ),
-                new Claim( ClaimTypes.Email, user.Mail)
+                new Claim( ClaimTypes.Email, user.Email)
             };
             ClaimsPrincipal principal = new ClaimsPrincipal( new ClaimsIdentity( claims, CookieAuthentication.AuthenticationType, ClaimTypes.Email, string.Empty ) );
             return principal;

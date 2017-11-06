@@ -27,12 +27,12 @@ namespace ITI.KDO.WebApp.Controllers
                 string mail = identity.FindFirst(ClaimTypes.Email).Value;
                 Token token = _tokenService.GenerateToken(userId, mail);
                 ViewData["Token"] = token;
-                ViewData["Mail"] = mail;
+                ViewData["Email"] = mail;
             }
             else
             {
                 ViewData["Token"] = null;
-                ViewData["Mail"] = null;
+                ViewData["Email"] = null;
             }
 
             ViewData["NoLayout"] = true;
