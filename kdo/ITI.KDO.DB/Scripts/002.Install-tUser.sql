@@ -5,7 +5,7 @@ create table dbo.tUser
     LastName  nvarchar(32) not null,
 	Birthdate datetime2 not null,
 	Email nvarchar(32) not null,
-	Phone int not null,
+	Phone nvarchar(12) not null,
 	Photo nvarchar(max) not null
 
     constraint PK_tUsers_UserId primary key(UserId),

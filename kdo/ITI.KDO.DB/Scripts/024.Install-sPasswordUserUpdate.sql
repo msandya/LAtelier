@@ -1,7 +1,7 @@
 create procedure dbo.sPasswordUserUpdate
 (
     @UserId   int,
-    @Password varbinary(64)
+    @Password varbinary(128)
 )
 as
 begin

@@ -12,7 +12,7 @@ namespace ITI.KDO.DAL
 
         public string LastName { get; set; }
 
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         public DateTime Birthdate { get; set; }
 
