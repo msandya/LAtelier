@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.KDO.DB", "KDO\ITI.KDO.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.KDO.WebApp", "KDO\ITI.KDO.WebApp\ITI.KDO.WebApp.csproj", "{3589A1A2-467A-404C-9200-D4E55800D820}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.KDO.DB.Tests", "kdo\ITI.KDO.DB.Tests\ITI.KDO.DB.Tests.csproj", "{EAEB7A6E-4627-4589-AE74-99F65807A9EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.KDO.DB.Tests", "kdo\ITI.KDO.DB.Tests\ITI.KDO.DB.Tests.csproj", "{B6D571C2-18AC-4DD8-9CC1-12104DDF8EE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{3589A1A2-467A-404C-9200-D4E55800D820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3589A1A2-467A-404C-9200-D4E55800D820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3589A1A2-467A-404C-9200-D4E55800D820}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAEB7A6E-4627-4589-AE74-99F65807A9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAEB7A6E-4627-4589-AE74-99F65807A9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAEB7A6E-4627-4589-AE74-99F65807A9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAEB7A6E-4627-4589-AE74-99F65807A9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D571C2-18AC-4DD8-9CC1-12104DDF8EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D571C2-18AC-4DD8-9CC1-12104DDF8EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D571C2-18AC-4DD8-9CC1-12104DDF8EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D571C2-18AC-4DD8-9CC1-12104DDF8EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
