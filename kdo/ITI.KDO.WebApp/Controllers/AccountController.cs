@@ -9,6 +9,8 @@ using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Models.AccountViewModels;
 using ITI.KDO.DAL;
 using ITI.KDO.WebApp.Authentification;
+using Mvc.Client.Extensions;
+using Microsoft.AspNetCore.Http.Authentication;
 
 namespace ITI.KDO.WebApp.Controllers
 {
@@ -56,6 +58,47 @@ namespace ITI.KDO.WebApp.Controllers
                 return RedirectToAction(nameof(Authenticated));
             }
             return View();
+        }
+
+
+        [HttpGet]
+        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
+        public async Task<IActionResult> LogOff()
+        {
+            await HttpContext.Authentication.SignOutAsync(CookieAuthentication.AuthenticationScheme);
+            ViewData["NoLayout"] = true;
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin([FromQuery] string provider)
+        {
+            // Note: the "provider" parameter corresponds to the external
+            // authentication provider choosen by the user agent.
+            if (string.IsNullOrWhiteSpace(provider))
+            {
+                return BadRequest();
+            }
+
+            if (!HttpContext.IsProviderSupported(provider))
+            {
+                return BadRequest();
+            }
+
+            // Instruct the middleware corresponding to the requested external identity
+            // provider to redirect the user agent to its own authorization endpoint.
+            // Note: the authenticationScheme parameter must match the value configured in Startup.cs
+            string redirectUri = Url.Action(nameof(ExternalLoginCallback), "Account");
+            return Challenge(new AuthenticationProperties { RedirectUri = redirectUri }, provider);
+        }
+
+
+        [HttpGet]
+        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
+        public IActionResult ExternalLoginCallback()
+        {
+            return RedirectToAction(nameof(Authenticated));
         }
 
         [HttpGet]
@@ -110,15 +153,6 @@ namespace ITI.KDO.WebApp.Controllers
                 return RedirectToAction(nameof(Authenticated));
             }
             return View(model);
-        }
-
-        [HttpGet]
-        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
-        public async Task<IActionResult> LogOff()
-        {
-            await HttpContext.Authentication.SignOutAsync(CookieAuthentication.AuthenticationScheme);
-            ViewData["NoLayout"] = true;
-            return View();
         }
 
         [HttpGet]

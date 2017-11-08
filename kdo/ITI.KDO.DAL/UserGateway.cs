@@ -37,7 +37,6 @@ namespace ITI.KDO.DAL
         }
 
 
-
         /*public IEnumerable<string> GetAuthenticationProviders(string userId)
         {
             using(SqlConnection con = new SqlConnection(_connectionString))
@@ -48,7 +47,7 @@ namespace ITI.KDO.DAL
             }
         }*/
 
-        public User FindByGoogleId(int googleId)
+        public User FindByGoogleId(string googleId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -61,7 +60,7 @@ namespace ITI.KDO.DAL
 
 
 
-        public User FindByFacebookId(int facebookId)
+        public User FindByFacebookId(string facebookId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -73,7 +72,7 @@ namespace ITI.KDO.DAL
         }
 
 
-        public void CreateGoogleUser(string email, string googleId, string refreshToken)
+        public void CreateGoogleUser(string email,string googleId,string refreshToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -215,6 +214,27 @@ namespace ITI.KDO.DAL
                 con.Execute(
                     "dbo.sPasswordUserUpdate",
                     new { UserId = userId, Password = password },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+        public void UpdateGoogleToken(int userId,string googleId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sGoogleUserUpdate",
+                    new { UserId = userId,GoogleId = googleId, refreshToken = refreshToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void AddGoogleToken(int userId,string googleId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sUserAddGoogleToken",
+                    new { UserId = userId, GoogleId = googleId, RefreshToken = refreshToken },
                     commandType: CommandType.StoredProcedure);
             }
         }

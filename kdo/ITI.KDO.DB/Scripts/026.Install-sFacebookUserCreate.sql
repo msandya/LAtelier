@@ -1,7 +1,7 @@
 create procedure dbo.sFacebookUserCreate
 (
 	@Email	  nvarchar(64),
-    @FacebookId   int,
+    @FacebookId   varchar(100),
     @RefreshToken varchar(64)
 )
 as

@@ -13,6 +13,8 @@ using ITI.KDO.DAL;
 using ITI.KDO.WebApp.Services;
 using System.Security.Claims;
 using System.Text;
+using ITI.KDO.WebApp.Authentication;
+using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace ITI.KDO.WebApp
 {
@@ -88,6 +90,21 @@ namespace ITI.KDO.WebApp
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
+            });
+
+            ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
+                new GoogleExternalAuthenticationManager(app.ApplicationServices.GetRequiredService<UserServices>()));
+
+            app.UseGoogleAuthentication(c =>
+            {
+                c.SignInScheme = CookieAuthentication.AuthenticationScheme;
+                c.ClientId = Configuration["Authentication:Google:ClientId"];
+                c.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                c.Events = new OAuthEvents
+                {
+                    OnCreatingTicket = googleAuthenticationEvents.OnCreatingTicket
+                };
+                c.AccessType = "offline";
             });
 
             app.UseMvc(routes =>

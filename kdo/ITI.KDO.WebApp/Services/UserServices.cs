@@ -46,6 +46,11 @@ namespace ITI.KDO.WebApp.Services
             return null;
         }
 
+        public User FindUser(string email)
+        {
+            return _userGateway.FindByEmail(email);
+        }
+
         public User FindUserByEmail(string email) => _userGateway.FindByEmail(email);
 
         public User FindUserById(int userId) => _userGateway.FindById(userId);
@@ -102,6 +107,24 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
+        public bool CreateOrUpdateGoogleUser(string email, string googleId,string refreshToken)
+        {
+            User user = _userGateway.FindByEmail(email);
+            if (user == null)
+            {
+                _userGateway.CreateGoogleUser(email, googleId, refreshToken);
+                return true;
+            }
+            if (user.FacebookRefreshToken == string.Empty)
+            {
+                _userGateway.AddGoogleToken(user.UserId, user.GoogleId,refreshToken);
+            }
+            else
+            {
+                _userGateway.UpdateGoogleToken( user.UserId,user.GoogleId, refreshToken);
+            }
+            return false;
+        }
 
     }
 }
