@@ -150,7 +150,7 @@ namespace ITI.KDO.DAL
                              u.[Password],
                              u.Photo
                       from dbo.vUser u
-                      where UserId = @UserId",
+                      where u.UserId = @UserId",
                     new { UserId = userId })
                     .FirstOrDefault();
             }
@@ -174,7 +174,7 @@ namespace ITI.KDO.DAL
                              u.[Password],
                              u.FacebookId
                       from dbo.vUser u
-                      where Email = @Email",
+                      where u.Email = @Email",
                     new { Email = email })
                     .FirstOrDefault();
             }

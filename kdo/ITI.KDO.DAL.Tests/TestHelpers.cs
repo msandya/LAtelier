@@ -45,5 +45,10 @@ namespace ITI.KDO.DAL.Tests
 
         public static string RandomPresentName() => string.Format("Test-{0}", Guid.NewGuid().ToString().Substring(24));
 
+        public static float RandomPrice() => (float)_random.NextDouble();
+
+        public static string RandomLink() => string.Format("www.-{0}", Guid.NewGuid().ToString().Substring(24));
+
+        public static int RandomUserId() => _random.Next();
     }
 }

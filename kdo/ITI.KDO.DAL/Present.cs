@@ -10,7 +10,7 @@ namespace ITI.KDO.DAL
 
         public string PresentName { get; set; }
 
-        public double Price { get; set; }
+        public float Price { get; set; }
 
         public string LinkPresent { get; set; }
 

@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using ITI.KDO.DAL;
 
 namespace ITI.KDO.DAL.Tests
 {
@@ -13,8 +12,8 @@ namespace ITI.KDO.DAL.Tests
         [Test]
         public void can_create_find_update_and_delete_user()
         {
-            UserGateway sut = new UserGateway(TestHelpers.ConnectionString);
-           
+            DAL.UserGateway sut = new DAL.UserGateway(TestHelpers.ConnectionString);
+
             string firstName = TestHelpers.RandomTestName();
             string lastName = TestHelpers.RandomTestName();
             string email = TestHelpers.RandomEmail();
@@ -55,7 +54,7 @@ namespace ITI.KDO.DAL.Tests
         [Test]
         public void can_create_google_user()
         {
-            UserGateway sut = new UserGateway(TestHelpers.ConnectionString);
+            DAL.UserGateway sut = new DAL.UserGateway(TestHelpers.ConnectionString);
             string email = string.Format("user{0}@test.com", Guid.NewGuid());
             string firstName = TestHelpers.RandomTestName();
             string lastName = TestHelpers.RandomTestName();
@@ -79,7 +78,7 @@ namespace ITI.KDO.DAL.Tests
         [Test]
         public void can_create_facebook_user()
         {
-            UserGateway sut = new UserGateway(TestHelpers.ConnectionString);
+            DAL.UserGateway sut = new DAL.UserGateway(TestHelpers.ConnectionString);
             string email = string.Format("user{0}@test.com", Guid.NewGuid());
             string firstName = TestHelpers.RandomTestName();
             string lastName = TestHelpers.RandomTestName();
@@ -99,7 +98,5 @@ namespace ITI.KDO.DAL.Tests
 
             sut.Delete(user.UserId);
         }
-
-
     }
 }
