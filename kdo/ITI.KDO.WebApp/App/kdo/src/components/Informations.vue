@@ -33,7 +33,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Photo">Photo : </label>
-                <input asp-for="Photo" class="form-control" v-model="item.photo"/>
+                <input asp-for="Photo" class="form-control" v-model="item.photo"/> <br />
+                <img :src="item.photo" />
                 <span asp-validation-for="Photo"></span>
             </div>
 
