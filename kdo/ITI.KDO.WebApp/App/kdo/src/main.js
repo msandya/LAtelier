@@ -12,7 +12,8 @@ import Acc from './components/Acc.vue';
 
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
-import Informations from './components/Informations.vue';
+import Profile from './components/Profile.vue';
+import EditProfile from './components/EditProfile.vue';
 import Logout from './components/Logout.vue';
 
 import AppDefault from './components/AppDefault.vue';
@@ -65,7 +66,8 @@ const router = new VueRouter({
         { path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
         { path: '/acc', component: Acc, beforeEnter: requireAuth },
-        { path: '/informations', component: Informations, beforeEnter: requireAuth},
+        { path: '/profile', component: Profile, beforeEnter: requireAuth},
+        { path: '/profile/edit', component: EditProfile, beforeEnter: requireAuth},
 
         { path: '/appDefault', component: AppDefault },
 
