@@ -104,6 +104,10 @@ export default {
   height: 5px;
 }
 
+p {
+    line-height:0;
+}
+
 a.router-link-active {
   font-weight: bold;
 }

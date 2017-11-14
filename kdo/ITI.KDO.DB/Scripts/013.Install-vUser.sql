@@ -10,9 +10,7 @@ as
 		Photo = u.Photo,
 		[Password] = case when p.[Password] is null then 0x else p.[Password] end,
 		GoogleRefreshToken = case when gl.RefreshToken is null then '' else gl.RefreshToken end,
-        GoogleId = case when gl.GoogleId is null then '' else gl.GoogleId end,
-		FacebookRefreshToken = case when fb.RefreshToken is null then '' else fb.RefreshToken end,
-		FacebookId = case when fb.FacebookId is null then '' else fb.FacebookId end
+		FacebookRefreshToken = case when fb.RefreshToken is null then '' else fb.RefreshToken end
 
 	from dbo.tUser u
 		left outer join dbo.tPasswordUser p on p.UserId = u.UserId

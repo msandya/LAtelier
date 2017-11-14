@@ -162,10 +162,12 @@ namespace ITI.KDO.WebApp.Controllers
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             string email = User.FindFirst(ClaimTypes.Email).Value;
             Token token = _tokenService.GenerateToken(userId, email);
+            IEnumerable<string> providers = _userService.GetAuthenticationProviders(userId);
             ViewData["BreachPadding"] = GetBreachPadding();
             ViewData["Token"] = token;
             ViewData["Email"] = email;
             ViewData["NoLayout"] = true;
+            ViewData["Providers"] = providers;
             return View();
         }
 

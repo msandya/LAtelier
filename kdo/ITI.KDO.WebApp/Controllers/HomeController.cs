@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Authentification;
+using System.Collections.Generic;
+
 
 namespace ITI.KDO.WebApp.Controllers
 {
@@ -26,8 +28,11 @@ namespace ITI.KDO.WebApp.Controllers
                 string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
                 string mail = identity.FindFirst(ClaimTypes.Email).Value;
                 Token token = _tokenService.GenerateToken(userId, mail);
+                IEnumerable<string> providers = _userServices.GetAuthenticationProviders(userId);
                 ViewData["Token"] = token;
                 ViewData["Email"] = mail;
+                ViewData["Providers"] = providers;
+
             }
             else
             {

@@ -23,6 +23,7 @@ namespace ITI.KDO.WebApp.Services
             {
                 new Claim( JwtRegisteredClaimNames.Sub, userId ),
                 new Claim( JwtRegisteredClaimNames.Email, email ),
+                new Claim( JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() ),
                 new Claim( JwtRegisteredClaimNames.Iat, ( ( int )( now - new DateTime( 1970, 1, 1 ) ).TotalSeconds).ToString(), ClaimValueTypes.Integer64 )
             };
 
