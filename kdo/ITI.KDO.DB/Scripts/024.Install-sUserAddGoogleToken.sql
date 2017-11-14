@@ -6,7 +6,7 @@ create procedure dbo.sUserAddGoogleToken
 )
 as
 begin
-    insert into dbo.tGoogleUser(UserId,GoogleId, RefreshToken)
+    insert into dbo.tGoogleUser(UserId, GoogleId, RefreshToken)
                          values(@UserId, @GoogleId, @RefreshToken);
     return 0;
 end;

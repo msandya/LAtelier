@@ -19,7 +19,7 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: ExtractTextPlugin.extract("css-lodaer"),
+                        css: ExtractTextPlugin.extract("css-loader"),
                         less: ExtractTextPlugin.extract("css-loader!less-loader")
                     }
                 }

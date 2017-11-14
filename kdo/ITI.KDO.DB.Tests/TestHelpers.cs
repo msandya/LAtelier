@@ -19,15 +19,9 @@ namespace ITI.KDO.DB.Tests
             return start.AddDays(gen.Next(range));
         }
 
-        public static string RandomName()
-        {
-            return string.Format("Name-{0}", Guid.NewGuid().ToString().Substring(0, 8));
-        }
+        public static string RandomName() => string.Format("Name-{0}", Guid.NewGuid().ToString().Substring(0, 8));
 
-        public static string RandomEmail()
-        {
-            return string.Format("{0}.@email.com", Guid.NewGuid().ToString().Substring(0, 8));
-        }
+        public static string RandomEmail() => string.Format("{0}.@email.com", Guid.NewGuid().ToString().Substring(0, 8));
 
         public static string RandomPhoneNumber()
         {

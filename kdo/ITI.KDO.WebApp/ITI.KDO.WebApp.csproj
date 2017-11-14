@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="1.1.3" />
@@ -27,11 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ITI.KDO.DAL\ITI.KDO.DAL.csproj" />
+    <Folder Include="Models\UserViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\UserViewModels\" />
+    <ProjectReference Include="..\ITI.KDO.DAL\ITI.KDO.DAL.csproj" />
   </ItemGroup>
 
 </Project>

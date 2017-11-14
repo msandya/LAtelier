@@ -10,18 +10,22 @@ namespace ITI.KDO.WebApp.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string OldPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string NewPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
         public string NewPasswordConfirm { get; set; }
     }
 }

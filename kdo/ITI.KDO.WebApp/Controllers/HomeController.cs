@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Authentification;
+using System.Collections.Generic;
 
 namespace ITI.KDO.WebApp.Controllers
 {
@@ -20,19 +21,21 @@ namespace ITI.KDO.WebApp.Controllers
         public IActionResult Index()
         {
             ClaimsIdentity identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == CookieAuthentication.AuthenticationType);
-            
             if (identity != null)
             {
                 string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
-                string mail = identity.FindFirst(ClaimTypes.Email).Value;
-                Token token = _tokenService.GenerateToken(userId, mail);
+                string email = identity.FindFirst(ClaimTypes.Email).Value;
+                Token token = _tokenService.GenerateToken(userId, email);
+                IEnumerable<string> providers = _userServices.GetAuthenticationProviders(userId);
                 ViewData["Token"] = token;
-                ViewData["Email"] = mail;
+                ViewData["Email"] = email;
+                ViewData["Providers"] = providers;
             }
             else
             {
                 ViewData["Token"] = null;
                 ViewData["Email"] = null;
+                ViewData["Providers"] = null;
             }
 
             ViewData["NoLayout"] = true;

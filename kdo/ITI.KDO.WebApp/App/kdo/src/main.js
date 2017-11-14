@@ -108,8 +108,8 @@ AuthService.providers = {
     'Google': {
         endpoint: '/Account/ExternalLogin?provider=Google'
     },
-    'GitHub': {
-        endpoint: '/Account/ExternalLogin?provider=GitHub'
+    'Facebook': {
+        endpoint: '/Account/ExternalLogin?provider=Facebook'
     },
 };
 AuthService.appRedirect = () => router.replace('/app');

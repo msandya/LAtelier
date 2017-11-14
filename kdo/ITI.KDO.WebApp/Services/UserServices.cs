@@ -27,6 +27,16 @@ namespace ITI.KDO.WebApp.Services
             return true;
         }
 
+        public User FindGoogleUser(string googleId)
+        {
+            return _userGateway.FindByGoogleId(googleId);
+        }
+
+        public IEnumerable<string> GetAuthenticationProviders(string userId)
+        {
+            return _userGateway.GetAuthenticationProviders(userId);
+        }
+
         public User FindUserPasswordHashed(string email)
         {
             User user = _userGateway.FindByEmail(email);
@@ -107,7 +117,7 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
-        public bool CreateOrUpdateGoogleUser(string email, string googleId,string refreshToken)
+        public bool CreateOrUpdateGoogleUser(string email, string googleId, string refreshToken)
         {
             User user = _userGateway.FindByEmail(email);
             if (user == null)
@@ -115,13 +125,32 @@ namespace ITI.KDO.WebApp.Services
                 _userGateway.CreateGoogleUser(email, googleId, refreshToken);
                 return true;
             }
-            if (user.FacebookRefreshToken == string.Empty)
+            if (user.GoogleRefreshToken == string.Empty)
             {
-                _userGateway.AddGoogleToken(user.UserId, user.GoogleId,refreshToken);
+                _userGateway.AddGoogleToken(user.UserId, googleId, refreshToken);
             }
             else
             {
-                _userGateway.UpdateGoogleToken( user.UserId,user.GoogleId, refreshToken);
+                _userGateway.UpdateGoogleToken( user.UserId, user.GoogleId, refreshToken);
+            }
+            return false;
+        }
+
+        public bool CreateOrUpdateFacebookUser(string email, string facebookId, string refreshToken)
+        {
+            User user = _userGateway.FindByEmail(email);
+            if(user == null)
+            {
+                _userGateway.CreateFacebookUser(email, facebookId, refreshToken);
+                return true;
+            }
+            if(user.FacebookAccessToken == string.Empty)
+            {
+                _userGateway.AddFacebookToken(user.UserId, facebookId, refreshToken);
+            }
+            else
+            {
+                _userGateway.UpdateFacebookToken(user.UserId, user.FacebookId, refreshToken);
             }
             return false;
         }

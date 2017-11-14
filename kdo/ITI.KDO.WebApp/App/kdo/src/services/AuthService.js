@@ -84,7 +84,6 @@ class AuthService {
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
         var popup = window.open(provider.endpoint, "Login to KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
-        //var popup = window.open(provider.endpoint);
     }
 
     modifyPassword() {
