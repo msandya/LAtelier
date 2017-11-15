@@ -27,10 +27,10 @@ namespace ITI.KDO.WebApp.Services
             return true;
         }
 
-        public User FindGoogleUser(string googleId)
+        /*public User FindGoogleUser(string googleId)
         {
             return _userGateway.FindByGoogleId(googleId);
-        }
+        }*/
 
         public IEnumerable<string> GetAuthenticationProviders(string userId)
         {
@@ -117,21 +117,21 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
-        public bool CreateOrUpdateGoogleUser(string email, string googleId, string refreshToken)
+        public bool CreateOrUpdateGoogleUser(string email,string refreshToken)
         {
             User user = _userGateway.FindByEmail(email);
             if (user == null)
             {
-                _userGateway.CreateGoogleUser(email, googleId, refreshToken);
+                _userGateway.CreateGoogleUser(email, refreshToken);
                 return true;
             }
             if (user.GoogleRefreshToken == string.Empty)
             {
-                _userGateway.AddGoogleToken(user.UserId, googleId, refreshToken);
+                _userGateway.AddGoogleToken(user.UserId, refreshToken);
             }
             else
             {
-                _userGateway.UpdateGoogleToken( user.UserId, user.GoogleId, refreshToken);
+                _userGateway.UpdateGoogleToken( user.UserId, refreshToken);
             }
             return false;
         }

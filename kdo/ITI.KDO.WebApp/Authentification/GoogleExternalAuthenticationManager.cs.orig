@@ -22,7 +22,11 @@ namespace ITI.KDO.WebApp.Authentification
         {
             if (context.RefreshToken != null)
             {
+<<<<<<< HEAD
+                _userService.CreateOrUpdateGoogleUser(context.GetEmail(), context.GetGoogleId(), context.RefreshToken);
+=======
                 _userService.CreateOrUpdateGoogleUser(context.GetEmail(),context.RefreshToken);
+>>>>>>> googleConnection
             }
         }
 

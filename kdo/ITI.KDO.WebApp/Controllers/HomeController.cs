@@ -5,6 +5,7 @@ using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Authentification;
 using System.Collections.Generic;
 
+
 namespace ITI.KDO.WebApp.Controllers
 {
     public class HomeController : Controller
@@ -30,6 +31,7 @@ namespace ITI.KDO.WebApp.Controllers
                 ViewData["Token"] = token;
                 ViewData["Email"] = email;
                 ViewData["Providers"] = providers;
+
             }
             else
             {

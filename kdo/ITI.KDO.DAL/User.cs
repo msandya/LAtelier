@@ -26,7 +26,7 @@ namespace ITI.KDO.DAL
 
         public string FacebookAccessToken { get; set; }
 
-        public string GoogleId { get; set; }
+        //public string GoogleId { get; set; }
 
         public string FacebookId { get; set; }
     }
