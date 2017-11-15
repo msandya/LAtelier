@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+import 'babel-polyfill';
 
 import Vue from 'vue';
 import $ from 'jquery';
@@ -13,6 +13,8 @@ import Acc from './components/Acc.vue';
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Logout from './components/Logout.vue';
+import Information from './components/Informations.vue';
+
 
 import AppDefault from './components/AppDefault.vue';
 
@@ -64,6 +66,7 @@ const router = new VueRouter({
         { path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
         { path: '/acc', component: Acc, beforeEnter: requireAuth },
+        { path: '/information', component: Information, beforeEnter: requireAuth },
 
         { path: '/appDefault', component: AppDefault },
 
@@ -108,8 +111,8 @@ AuthService.providers = {
     'Google': {
         endpoint: '/Account/ExternalLogin?provider=Google'
     },
-    'GitHub': {
-        endpoint: '/Account/ExternalLogin?provider=GitHub'
+    'Facebook': {
+        endpoint: '/Account/ExternalLogin?provider=Facebook'
     },
 };
 AuthService.appRedirect = () => router.replace('/app');

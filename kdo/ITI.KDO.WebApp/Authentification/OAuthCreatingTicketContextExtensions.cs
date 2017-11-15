@@ -5,14 +5,29 @@ namespace ITI.KDO.WebApp.Authentication
 {
     public static class OAuthCreatingTicketContextExtensions
     {
-        public static string GetEmail( this OAuthCreatingTicketContext @this )
+        public static string GetEmail(this OAuthCreatingTicketContext @this)
         {
-            return @this.Identity.FindFirst( c => c.Type == ClaimTypes.Email ).Value;
+            return @this.Identity.FindFirst(c => c.Type == ClaimTypes.Email).Value;
         }
 
-        static string GetNameIdentifier( this OAuthCreatingTicketContext @this )
+        //public static string GetGoogleId(this OAuthCreatingTicketContext @this)
+        //{
+        //    return @this.GetNameIdentifier();
+        //}
+
+        //public static int GetGithubId(this OAuthCreatingTicketContext @this)
+        //{
+        //    return int.Parse(@this.GetNameIdentifier());
+        //}
+
+        public static string GetFacebookId(this OAuthCreatingTicketContext @this)
         {
-            return @this.Identity.FindFirst( c => c.Type == ClaimTypes.NameIdentifier ).Value;
+            return @this.GetNameIdentifier();
+        }
+
+        static string GetNameIdentifier(this OAuthCreatingTicketContext @this)
+        {
+            return @this.Identity.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }
     }
 }

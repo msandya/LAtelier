@@ -24,10 +24,10 @@ namespace ITI.KDO.DAL
 
         public string GoogleRefreshToken { get; set; }
 
-        public string FacebookRefreshToken { get; set; }
+        public string FacebookAccessToken { get; set; }
 
-        public int GoogleId { get; set; }
+        //public string GoogleId { get; set; }
 
-        public int FacebookId { get; set; }
+        public string FacebookId { get; set; }
     }
 }

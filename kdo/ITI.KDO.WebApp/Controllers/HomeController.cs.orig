@@ -1,0 +1,61 @@
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using ITI.KDO.WebApp.Services;
+using ITI.KDO.WebApp.Authentification;
+<<<<<<< HEAD
+using System.Collections.Generic;
+=======
+using System.Collections.Generic;
+
+>>>>>>> googleConnection
+
+namespace ITI.KDO.WebApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        readonly TokenService _tokenService;
+        readonly UserServices _userServices;
+
+        public HomeController(TokenService tokenService, UserServices userService)
+        {
+            _tokenService = tokenService;
+            _userServices = userService;
+        }
+
+        public IActionResult Index()
+        {
+            ClaimsIdentity identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == CookieAuthentication.AuthenticationType);
+            if (identity != null)
+            {
+                string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+<<<<<<< HEAD
+                string email = identity.FindFirst(ClaimTypes.Email).Value;
+                Token token = _tokenService.GenerateToken(userId, email);
+                IEnumerable<string> providers = _userServices.GetAuthenticationProviders(userId);
+                ViewData["Token"] = token;
+                ViewData["Email"] = email;
+                ViewData["Providers"] = providers;
+=======
+                string mail = identity.FindFirst(ClaimTypes.Email).Value;
+                Token token = _tokenService.GenerateToken(userId, mail);
+                IEnumerable<string> providers = _userServices.GetAuthenticationProviders(userId);
+                ViewData["Token"] = token;
+                ViewData["Email"] = mail;
+                ViewData["Providers"] = providers;
+
+>>>>>>> googleConnection
+            }
+            else
+            {
+                ViewData["Token"] = null;
+                ViewData["Email"] = null;
+                ViewData["Providers"] = null;
+            }
+
+            ViewData["NoLayout"] = true;
+            return View();
+        }
+        
+    }
+}

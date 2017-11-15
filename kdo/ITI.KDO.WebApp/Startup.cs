@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ITI.KDO.DAL;
+using ITI.KDO.WebApp.Authentication;
+using ITI.KDO.WebApp.Authentification;
+using ITI.KDO.WebApp.Services;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using ITI.KDO.WebApp.Authentification;
-using ITI.KDO.DAL;
-using ITI.KDO.WebApp.Services;
 using System.Security.Claims;
 using System.Text;
 
@@ -88,6 +86,37 @@ namespace ITI.KDO.WebApp
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationScheme = CookieAuthentication.AuthenticationScheme
+            });
+            
+            //Google Login OAuth
+            ExternalAuthenticationEvents googleAuthenticationEvents = new ExternalAuthenticationEvents(
+                new GoogleExternalAuthenticationManager(app.ApplicationServices.GetRequiredService<UserServices>()));
+
+            app.UseGoogleAuthentication(c =>
+            {
+                c.SignInScheme = CookieAuthentication.AuthenticationScheme;
+                c.ClientId = Configuration["Authentication:Google:ClientId"];
+                c.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                c.Events = new OAuthEvents
+                {
+                    OnCreatingTicket = googleAuthenticationEvents.OnCreatingTicket
+                };
+                c.AccessType = "offline";
+            });
+
+            //Facebook Login OAuth
+            ExternalAuthenticationEvents facebookAuthenticationEvents = new ExternalAuthenticationEvents(
+                new FacebookExternalAuthenticationManager(app.ApplicationServices.GetRequiredService<UserServices>()));
+
+            app.UseFacebookAuthentication(c =>
+            {
+                c.SignInScheme = CookieAuthentication.AuthenticationScheme;
+                c.ClientId = Configuration["Authentication:Facebook:AppId"];
+                c.ClientSecret = Configuration["Authentication:Facebook:AppSecret"];
+                c.Events = new OAuthEvents
+                {
+                    OnCreatingTicket = facebookAuthenticationEvents.OnCreatingTicket
+                };
             });
 
             app.UseMvc(routes =>

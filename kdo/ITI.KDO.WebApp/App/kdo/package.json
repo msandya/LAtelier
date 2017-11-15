@@ -1,6 +1,6 @@
 {
-  "name": "primary-school",
-  "description": "Client-side Vue application for PrimarySchool.",
+  "name": "KDO",
+  "description": "Client-side Vue application for KDO.",
   "author": "IN'TECH",
   "private": true,
   "scripts": {

@@ -37,60 +37,69 @@ namespace ITI.KDO.DAL
         }
 
 
+        //public IEnumerable<string> GetAuthenticationProviders(string userId)
+        //{
+        //    using(SqlConnection con = new SqlConnection(_connectionString))
+        //    {
+        //        return con.Query<string>(
+        //            "select p.ProviderName from dbo.vAuthenticationProvider p where p.UserId = @UserId",
+        //            new { UserId = userId });
+        //    }
+        //}
 
-        /*public IEnumerable<string> GetAuthenticationProviders(string userId)
-        {
-            using(SqlConnection con = new SqlConnection(_connectionString))
-            {
-                return con.Query<string>(
-                    "select p.ProviderName from iti.vAuthenticationProvider p where p.UserId = @UserId",
-                    new { UserId = userId });
-            }
-        }*/
-
-        public User FindByGoogleId(int googleId)
-        {
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                return con.Query<User>(
-                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.GoogleId = @GoogleId",
-                        new { GoogleId = googleId })
-                    .FirstOrDefault();
-            }
-        }
-
+        //public User FindByGoogleId(string googleId)
+        //{
+        //    using (SqlConnection con = new SqlConnection(_connectionString))
+        //    {
+        //        return con.Query<User>(
+        //                "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.GoogleId = @GoogleId",
+        //                new { GoogleId = googleId })
+        //            .FirstOrDefault();
+        //    }
+        //}
 
 
-        public User FindByFacebookId(int facebookId)
+        public User FindByFacebookId(string facebookId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 return con.Query<User>(
-                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.FacebookId = @FacebookId",
+                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookAccessToken, u.FacebookId from dbo.vUser u where u.FacebookId = @FacebookId",
                         new { FacebookId = facebookId })
                     .FirstOrDefault();
             }
         }
 
+        //public User FindByFacebookId(string facebookId)
+        //{
+        //    using (SqlConnection con = new SqlConnection(_connectionString))
+        //    {
+        //        return con.Query<User>(
+        //                "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.FacebookRefreshToken from dbo.vUser u where u.FacebookId = @FacebookId",
+        //                new { FacebookId = facebookId })
+        //            .FirstOrDefault();
+        //    }
+        //}
 
-        public void CreateGoogleUser(string email, string googleId, string refreshToken)
+
+        public void CreateGoogleUser(string email,string refreshToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sGoogleUserCreate",
-                    new { Email = email, GoogleId = googleId, RefreshToken = refreshToken },
+                    new { Email = email, RefreshToken = refreshToken, FirstName = "N", LastName = "N" },
                     commandType: CommandType.StoredProcedure);
             }
         }
         
-        public void CreateFacebookUser(string email, string facebookId, string refreshToken)
+        public void CreateFacebookUser(string email, string facebookId, string accessToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sFacebookUserCreate",
-                    new { Email = email, FacebookId = facebookId, RefreshToken = refreshToken },
+                    new { Email = email, FacebookId = facebookId, AccessToken = accessToken, FirstName = "N", LastName = "N" },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -110,19 +119,6 @@ namespace ITI.KDO.DAL
                       from dbo.vUser u;");
             }
         }
-
-        /*public User FindUserPasswordHashed(int userId)
-        {
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                return con.Query<User>(
-                    @"select u.Password
-                      from iti.vUser u
-                      where UserId = @UserId",
-                    new { UserId = userId })
-                    .FirstOrDefault();
-            }
-        }*/
 
         public User FindUserPasswordHashed(int userId)
         {
@@ -148,7 +144,9 @@ namespace ITI.KDO.DAL
                              u.Email,
                              u.BirthDate,
                              u.Phone,
-                             u.Photo
+                             u.Photo,
+                             u.FacebookAccessToken,
+                             u.GoogleRefreshToken
                       from dbo.vUser u
                       where UserId = @UserId",
                     new { UserId = userId })
@@ -167,7 +165,9 @@ namespace ITI.KDO.DAL
                              u.Email,
                              u.BirthDate,
                              u.Phone,
-                             u.Photo
+                             u.Photo,
+                             u.FacebookAccessToken,
+                             u.GoogleRefreshToken
                       from dbo.vUser u
                       where Email = @Email",
                     new { Email = email })
@@ -216,6 +216,59 @@ namespace ITI.KDO.DAL
                     "dbo.sPasswordUserUpdate",
                     new { UserId = userId, Password = password },
                     commandType: CommandType.StoredProcedure);
+            }
+        }
+        public void UpdateGoogleToken(int userId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sGoogleUserUpdate",
+                    new { UserId = userId, refreshToken = refreshToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void UpdateFacebookToken(int userId, string facebookId, string accessToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sFacebookUserUpdate",
+                    new { UserId = userId, FacebookId = facebookId, AccessToken = accessToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void AddGoogleToken(int userId, string refreshToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sUserAddGoogleToken",
+                    new { UserId = userId, RefreshToken = refreshToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void AddFacebookToken(int userId, string facebookId, string accessToken)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sUserAddFacebookToken",
+                    new { UserId = userId, FacebookId = facebookId, AccessToken = accessToken },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public IEnumerable<string> GetAuthenticationProviders(string userId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<string>(
+                    "select p.ProviderName from dbo.vAuthenticationProvider p where p.UserId = @UserId",
+                    new { UserId = userId });
             }
         }
 
