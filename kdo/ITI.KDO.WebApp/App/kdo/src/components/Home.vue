@@ -1,57 +1,46 @@
 <template>
   <div id="fond">
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#iti-navbar-collapse" aria-expanded="false">
-            <span class="icon-bar"></span>
-          </button>
-          <router-link class="navbar-brand" to="/acc">
+ 
+    <b-navbar toggleable="md" type="dark" variant="dark" sticky="true" style="margin-top: -24px; margin-bottom: -24px;">
+
+    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+    <b-collapse is-nav id="nav_collapse">
+
+    <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+
+          <b-navbar-brand href="/Home">
             <img src="../img/logoKdo.png" style="width:50px"></img>
-          </router-link>
-            <ul class="nav navbar-nav navbar-right" v-if="!auth.isConnected">
-            <a href="#" @click="login()">Sign In</a>
-            <a href="#" @click="register()">Sign Up</a>
-         </ul>
-          </div>
+          </b-navbar-brand>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="iti-navbar-collapse" v-if="auth.isConnected">
+          <b-navbar-nav v-if="!auth.isConnected">
+            <b-nav-item href="#" @click="login()">Sign In</b-nav-item>
+            <b-nav-item href="#" @click="register()">Sign Up</b-nav-item>
+          </b-navbar-nav>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.email }}
-                <span class="caret"></span>
-              </a>
-            <ul class="dropdown-menu" role="menu">
-            <li><a href="users/information">Profil</a></li>
-            <li><a href="#" @click="modifyPassword()">Modify Password</a></li>
-            <li><a href="#" @click="logout()">Se déconnecter</a></li>
-            
-          </ul>
-            </li>
-          </ul>
-          <ul class="dropdown-menu">
-            <li>
-              <router-link :to="`users/information`">Profil</router-link>
-            </li>
-          </ul>
-        </div>
-        
+          <b-navbar-nav v-if="auth.isConnected">
+            <b-nav-item href="users/information">Profil</b-nav-item>
+            <b-nav-item href="#"@click="logout()">Logout</b-nav-item>
+          </b-navbar-nav>
 
-        <!-- /.navbar-collapse -->
+        </b-navbar-nav>
+
       </div>
-      <!-- /.container-fluid -->
-  
-      <div class="progress" v-show="isLoading">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
-      </div>
-    </nav>
-  
-    <div class="container">
-      <router-view class="child"></router-view>
     </div>
+
+    <div class="progress" v-show="isLoading">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
+    </div>
+
+    </b-collapse>
+    </b-navbar>
+  
+    <router-view class="child"></router-view>
   
   </div>
 </template>
@@ -98,17 +87,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+
 .progress {
   margin: 0px;
   padding: 0px;
-  height: 5px;
+  height: 0px;
 }
 
 a.router-link-active {
   font-weight: bold;
 }
+
 </style>
 
 <style lang="less">
-@import "../styles/global.less";
+  @import "../styles/global.less";
 </style>
