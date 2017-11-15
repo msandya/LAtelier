@@ -12,6 +12,8 @@ import Acc from './components/Acc.vue';
 
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
+import Profile from './components/Profile.vue';
+import EditProfile from './components/EditProfile.vue';
 import Logout from './components/Logout.vue';
 import Information from './components/Informations.vue';
 
@@ -66,7 +68,8 @@ const router = new VueRouter({
         { path: '/login', component: Login },
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
         { path: '/acc', component: Acc, beforeEnter: requireAuth },
-        { path: '/information', component: Information, beforeEnter: requireAuth },
+        { path: '/profile', component: Profile, beforeEnter: requireAuth},
+        { path: '/profile/edit', component: EditProfile, beforeEnter: requireAuth},
 
         { path: '/appDefault', component: AppDefault },
 
@@ -86,7 +89,7 @@ const router = new VueRouter({
  */
 
 // Allowed urls to access the application (if your website is http://mywebsite.com, you have to add it)
-AuthService.allowedOrigins = ['http://localhost:54822', /* 'http://mywebsite.com' */ ];
+AuthService.allowedOrigins = ['http://localhost:54821', /* 'http://mywebsite.com' */ ];
 
 // Server-side endpoint to logout
 AuthService.logoutEndpoint = '/Account/LogOff';

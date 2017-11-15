@@ -202,7 +202,7 @@ namespace ITI.KDO.DAL
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
-                    "dbo.sUserUpdate",
+                    "dbo.sUpdateUser",
                     new { UserId = userId, FirstName = firstName, LastName = lastName, BirthDate = birthDate, Email = email, Phone = phone, Photo = photo },
                     commandType: CommandType.StoredProcedure);
             }

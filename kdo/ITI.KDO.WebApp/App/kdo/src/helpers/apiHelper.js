@@ -21,17 +21,16 @@ export async function postAsync(url, data) {
 }
 
 export async function putAsync(url, data) {
-    return await $.ajax({
+    return await fetch(url, {
         method: 'PUT',
-        url: url,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(data),
-        dataFilter: dataFilter,
+        body: JSON.stringify(data),
         headers: {
-            Authorization: `Bearer ${AuthService.accessToken}`
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${AuthService.accessToken}`
         }
-    });
+    })
+    .then(checkErrors)
+    .then(toJSON);
 }
 
 export async function getAsync(url) {

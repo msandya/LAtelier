@@ -25,7 +25,7 @@
                 <span class="caret"></span>
               </a>
             <ul class="dropdown-menu" role="menu">
-            <li><a href="users/information">Profil</a></li>
+            <li><a href="profile">Profil</a></li>
             <li><a href="#" @click="modifyPassword()">Modify Password</a></li>
             <li><a href="#" @click="logout()">Se déconnecter</a></li>
             
@@ -34,7 +34,7 @@
           </ul>
           <ul class="dropdown-menu">
             <li>
-              <router-link :to="`users/information`">Profil</router-link>
+              <router-link :to="`profile`">Profil</router-link>
             </li>
           </ul>
         </div>
