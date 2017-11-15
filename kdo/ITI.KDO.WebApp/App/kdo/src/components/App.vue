@@ -2,7 +2,7 @@
 <!--The view, which is just a declarative mapping of the state;-->
 <template>
   <div>
-  <h1>This is app.</h1>
+  <h1>This is main app.</h1>
   </div>
 </template>
 

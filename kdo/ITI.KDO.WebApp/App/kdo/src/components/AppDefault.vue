@@ -1,9 +1,10 @@
 <template>
-   
+   <h1>This is default app.</h1>
    
 </template>
 <script>
     import MyAlert from './MyAlert.vue';
+    import AuthService from "../services/AuthService";
 
     export default {
         components: {
@@ -32,6 +33,7 @@
         },
 
         methods: {
+            
             changeText() {
                 this.message = "Cette application est réalisée à l'aide du framework Vue 2.0 RC";
             },

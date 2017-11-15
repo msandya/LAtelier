@@ -26,7 +26,6 @@ class AuthService {
 
     get accessToken() {
         var identity = this.identity;
-
         return identity ? identity.bearer.access_token : null;
     }
 
@@ -50,7 +49,6 @@ class AuthService {
 
     get boundProviders() {
         var identity = this.identity;
-
         return identity ? identity.boundProviders : [];
     }
 
@@ -72,8 +70,6 @@ class AuthService {
         if (data.type == 'authenticated') this.onAuthenticated(data.payload);
         else if (data.type == 'signedOut') this.onSignedOut();
     }
-
-
 
     registerAuthenticatedCallback(cb) {
         this.authenticatedCallbacks.push(cb);
