@@ -1,5 +1,5 @@
 <template>
-    <div class="jumbotron">
+    <div class="jumbotron" style="margin-bottom: 0px">
 
         <div class="mx-auto" style="width: 400px; padding-bottom: 60px;">
             <b-img src="https://img4.hostingpics.net/pics/934437logoKdo1.png" fluid alt="Responsive image"/>

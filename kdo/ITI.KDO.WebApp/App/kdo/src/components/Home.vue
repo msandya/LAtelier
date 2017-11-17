@@ -1,7 +1,7 @@
 <template>
-  <div id="fond">
+  <div id="fond" style="margin-top:-24px;">
  
-    <b-navbar toggleable="md" type="dark" variant="dark" sticky="true" style="margin-top: -24px; margin-bottom: -24px;">
+    <b-navbar toggleable="md" type="dark" variant="dark" sticky="true">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
