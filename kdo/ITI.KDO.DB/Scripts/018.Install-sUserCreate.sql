@@ -11,11 +11,8 @@ as
 begin
 	insert into dbo.tUser(FirstName, LastName, Birthdate, Email, Phone, Photo)
 	values(@FirstName, @LastName, @Birthdate, @Email, @Phone, @Photo);
-	return 0;
+	return scope_identity();
 end
-
-
-
 
 
 

@@ -12,14 +12,14 @@ namespace ITI.KDO.DAL.Tests
         [Test]
         public void can_create_find_update_and_delete_user()
         {
-            DAL.UserGateway sut = new DAL.UserGateway(TestHelpers.ConnectionString);
+            UserGateway sut = new UserGateway(TestHelpers.ConnectionString);
 
             string firstName = TestHelpers.RandomTestName();
             string lastName = TestHelpers.RandomTestName();
             string email = TestHelpers.RandomEmail();
             byte[] password = Guid.NewGuid().ToByteArray();
 
-            sut.CreatePasswordUser(email, firstName, lastName, password);
+            sut.CreateUserWithPassword(email, firstName, lastName, password);
             User user = sut.FindByEmail(email);
 
             {

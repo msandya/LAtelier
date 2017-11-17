@@ -1,37 +1,72 @@
 ﻿using ITI.KDO.DAL;
 using NUnit.Framework;
+using System;
 
 namespace ITI.KDO.DAL.Tests
 {
     [TestFixture]
     public class PresentGatewayTests
     {
+        private static UserGateway _userGateway;
+        private static PresentGateway _presentGateway;
+        private static CategoryPresentGateway _categoryPresentGateway;
+        private static UserGateway UserGateway => _userGateway ?? (_userGateway = new UserGateway(TestHelpers.ConnectionString));
+        private static PresentGateway PresentGateway => _presentGateway ?? (_presentGateway = new PresentGateway(TestHelpers.ConnectionString));
+   
         [Test]
-        public void can_create_find_update_and_delete_Present()
+        public void can_create_find_update_and_delete_present()
         {
-            PresentGateway sut = new PresentGateway(TestHelpers.ConnectionString);
+            string firstName = TestHelpers.RandomTestName();
+            string lastName = TestHelpers.RandomTestName();
+            DateTime birthDate = TestHelpers.RandomBirthDate(21);
+            string email = TestHelpers.RandomEmail();
+            string phone = TestHelpers.RandomPhone();
+            string photo = TestHelpers.RandomPhoto();
+
             string presentName = TestHelpers.RandomPresentName();
             float price = TestHelpers.RandomPrice();
             string linkPresent = TestHelpers.RandomLink();
-            int userId = TestHelpers.RandomUserId();
-            int categoryPresent = TestHelpers.RandomUserId();
+            int categoryPresentId = 0;
 
-            sut.AddUserPresent(presentName, price, linkPresent, categoryPresent, userId);
-            Present present = sut.FindById(userId);
+            var userId = UserGateway.Create(firstName, lastName, birthDate, email, phone, photo);
+
+            var presentId = PresentGateway.AddToUser(presentName, price, linkPresent, categoryPresentId, userId);
+            Present present = PresentGateway.FindById(userId);
 
             {
                 Assert.That(present.PresentName, Is.EqualTo(presentName));
-                Assert.That(present.CategoryPresentId, Is.EqualTo(categoryPresent));
+                Assert.That(present.UserId, Is.EqualTo(userId));
                 Assert.That(present.Price, Is.EqualTo(price));
                 Assert.That(present.LinkPresent, Is.EqualTo(linkPresent));
+                Assert.That(present.CategoryPresentId, Is.EqualTo(categoryPresentId));
             }
 
             {
-                Present p = sut.FindById(present.UserId);
-                Assert.That(p.UserId, Is.EqualTo(userId));
+                categoryPresentId = 1;
+                linkPresent = TestHelpers.RandomLink();
+                presentName = TestHelpers.RandomPresentName();
+                price = TestHelpers.RandomPrice();
+                PresentGateway.Update(presentName, price, linkPresent, categoryPresentId, userId);
+       
             }
 
-        }
+            {
+                present = PresentGateway.FindById(userId);
+                Assert.That(present.LinkPresent, Is.EqualTo(linkPresent));
+                Assert.That(present.PresentName, Is.EqualTo(presentName));
+                Assert.That(present.Price, Is.EqualTo(price));
+                Assert.That(present.CategoryPresentId, Is.EqualTo(categoryPresentId));
+            }
 
+            {
+                PresentGateway.Delete(presentId, userId);
+                Assert.That(PresentGateway.FindById(userId), Is.Null);   
+            }
+
+            {
+                UserGateway.Delete(userId);
+                Assert.That(UserGateway.FindById(userId), Is.Null);
+            }
+        }
     }
 }
