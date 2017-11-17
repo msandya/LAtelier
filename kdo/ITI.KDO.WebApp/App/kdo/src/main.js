@@ -1,9 +1,11 @@
 import 'babel-polyfill';
 
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
 import $ from 'jquery';
 import Vuex from 'vuex';
-import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './vuex/store';
 import VueRouter from 'vue-router';
 
@@ -31,7 +33,9 @@ import Test from './components/Test.vue';
 
 import AuthService from './services/AuthService';
 
+
 Vue.use(VueRouter);
+Vue.use(BootstrapVue);
 
 /**
  * Filter for routes requiring an authenticated user
