@@ -1,4 +1,4 @@
-import { getAsync, putAsync } from '../helpers/apiHelper'
+import { getAsync, putAsync } from '../helpers/apiHelper';
 
 class AuthService {
     constructor() {
@@ -37,14 +37,6 @@ class AuthService {
     emailUser() {
         var identity = this.identity;
         return identity.email ? identity.email : null;
-    }
-
-    async getUserAsync(emailUser) {
-        return await getAsync(`/api/user/${emailUser}`);
-    }
-
-    async updateUserAsync(model) {
-        return await putAsync(`/api/user/${model.userId}`, model);
     }
 
     get boundProviders() {

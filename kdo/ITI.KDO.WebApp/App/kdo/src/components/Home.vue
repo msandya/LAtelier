@@ -26,7 +26,6 @@
               </a>
             <ul class="dropdown-menu" role="menu">
             <li><a href="profile">Profil</a></li>
-            <li><a href="#" @click="modifyPassword()">Modify Password</a></li>
             <li><a href="#" @click="logout()">Se déconnecter</a></li>
             
           </ul>
@@ -84,10 +83,6 @@ export default {
 
     register() {
       AuthService.register();
-    },
-
-    modifyPassword(){
-      AuthService.modifyPassword();
     },
 
     logout(){

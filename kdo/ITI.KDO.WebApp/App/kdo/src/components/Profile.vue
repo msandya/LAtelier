@@ -7,11 +7,12 @@
         {{item.birthdate}} <br />
         {{item.phone}} <br />
         <router-link :to="`/profile/edit`">Edit profile</router-link>
+        <a href="#" @click="modifyPassword()">Modify Password</a>
     </div>
 </template>
 <script>
     import AuthService from "../services/AuthService";
-    import $ from 'jquery'
+    import UserApiService from "../services/UserApiService";
     import { mapGetters, mapActions } from "vuex";
     import "../directives/requiredProviders";
     import Vue from 'vue';
@@ -32,17 +33,13 @@
 
         async mounted() {
             var userEmail = AuthService.emailUser();
-            this.item = await AuthService.getUserAsync(userEmail);
+            this.item = await UserApiService.getUserAsync(userEmail);
         },
 
         methods: {
-            login() {
-                this.$router.replace('/login');
+            modifyPassword(){
+                AuthService.modifyPassword();
             },
-
-            register() {
-                AuthService.register();
-            }
         }
     };
 </script>

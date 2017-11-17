@@ -36,7 +36,7 @@ namespace ITI.KDO.WebApp.Controllers
         [HttpGet("{emailUser}")]
         public User GetUserByEmail(string emailUser)
         {
-            User user = _userServices.FindUserPasswordHashed(emailUser);
+            User user = _userServices.FindUser(emailUser);
             return user;
         }
 

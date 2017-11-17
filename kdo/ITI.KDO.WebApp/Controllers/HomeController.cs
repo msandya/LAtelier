@@ -19,6 +19,11 @@ namespace ITI.KDO.WebApp.Controllers
             _userServices = userService;
         }
 
+        /*public IActionResult Index2()
+        {
+            ClaimsIdentity identity = 
+        }*/
+
         public IActionResult Index()
         {
             ClaimsIdentity identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == CookieAuthentication.AuthenticationType);
@@ -31,7 +36,6 @@ namespace ITI.KDO.WebApp.Controllers
                 ViewData["Token"] = token;
                 ViewData["Email"] = email;
                 ViewData["Providers"] = providers;
-
             }
             else
             {
