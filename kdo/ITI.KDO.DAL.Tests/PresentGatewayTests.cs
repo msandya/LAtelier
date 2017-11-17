@@ -9,7 +9,6 @@ namespace ITI.KDO.DAL.Tests
     {
         private static UserGateway _userGateway;
         private static PresentGateway _presentGateway;
-        private static CategoryPresentGateway _categoryPresentGateway;
         private static UserGateway UserGateway => _userGateway ?? (_userGateway = new UserGateway(TestHelpers.ConnectionString));
         private static PresentGateway PresentGateway => _presentGateway ?? (_presentGateway = new PresentGateway(TestHelpers.ConnectionString));
    
