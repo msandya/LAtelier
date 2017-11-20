@@ -15,7 +15,12 @@ namespace ITI.KDO.DAL
         {
             _connectionString = connectionString;
         }
-
+        /// <summary>
+        /// Create categoryName and return this CategoryPresentId
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
         public int Create(string categoryName, string link)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))

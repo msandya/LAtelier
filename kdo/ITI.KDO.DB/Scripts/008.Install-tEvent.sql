@@ -1,7 +1,7 @@
 create table dbo.tEvent
 (
     EventId int identity(0, 1),
-	NameEvent nvarchar(32) not null,
+	EventName nvarchar(32) not null,
 	Descriptions nvarchar(32) not null,
 	Dates datetime2 not null,
 	UserId int not null
