@@ -58,7 +58,10 @@
                 numbers: [],
                 counter: 0,
                 firstName: '',
-                buttonClass: 'btn-primary'
+                buttonClass: 'btn-primary',
+
+                slide: 0,
+                sliding: null
             }
         },
 
@@ -98,6 +101,12 @@
 
             changeClass() {
                 this.buttonClass = 'btn-warning';
+            },
+            onSlideStart(slide){
+                this.sliding = true;
+            },
+            onSlideEnd(slide){
+                this.sliding = false;
             }
         }
     }
