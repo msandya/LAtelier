@@ -1,6 +1,7 @@
 create procedure dbo.sGoogleUserUpdate
 (
 	@UserId       int,
+	@GoogleId	  varchar(32),
 	@RefreshToken varchar(64)
 )
 as

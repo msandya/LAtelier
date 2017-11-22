@@ -1,4 +1,4 @@
-create proc dbo.sPresentUpdate
+create procedure dbo.sPresentUpdate
 (
     @PresentId         int,
 	@UserId 		   int,

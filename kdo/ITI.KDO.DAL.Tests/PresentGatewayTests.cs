@@ -30,7 +30,7 @@ namespace ITI.KDO.DAL.Tests
             var userId = UserGateway.Create(firstName, lastName, birthDate, email, phone, photo);
 
             var presentId = PresentGateway.AddToUser(presentName, price, linkPresent, categoryPresentId, userId);
-            Present present = PresentGateway.FindById(userId);
+            Present present = PresentGateway.FindById(presentId);
 
             {
                 Assert.That(present.PresentName, Is.EqualTo(presentName));
@@ -45,12 +45,12 @@ namespace ITI.KDO.DAL.Tests
                 linkPresent = TestHelpers.RandomLink();
                 presentName = TestHelpers.RandomPresentName();
                 price = TestHelpers.RandomPrice();
-                PresentGateway.Update(presentName, price, linkPresent, categoryPresentId, userId);
+                PresentGateway.Update(presentId, presentName, price, linkPresent, categoryPresentId, userId);
        
             }
 
             {
-                present = PresentGateway.FindById(userId);
+                present = PresentGateway.FindById(presentId);
                 Assert.That(present.LinkPresent, Is.EqualTo(linkPresent));
                 Assert.That(present.PresentName, Is.EqualTo(presentName));
                 Assert.That(present.Price, Is.EqualTo(price));
@@ -58,8 +58,8 @@ namespace ITI.KDO.DAL.Tests
             }
 
             {
-                PresentGateway.Delete(presentId, userId);
-                Assert.That(PresentGateway.FindById(userId), Is.Null);   
+                PresentGateway.Delete(presentId);
+                Assert.That(PresentGateway.FindById(presentId), Is.Null);   
             }
 
             {

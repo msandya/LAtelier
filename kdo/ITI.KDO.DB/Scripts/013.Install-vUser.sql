@@ -10,6 +10,7 @@ as
 		Photo = u.Photo,
 		[Password] = case when p.[Password] is null then 0x else p.[Password] end,
 		GoogleRefreshToken = case when gl.RefreshToken is null then '' else gl.RefreshToken end,
+		GoogleId = case when gl.GoogleId is null then '' else gl.GoogleId end,
 		FacebookAccessToken = case when fb.AccessToken is null then '' else fb.AccessToken end,
 		FacebookId = case when fb.FacebookId is null then '' else fb.FacebookId end
 

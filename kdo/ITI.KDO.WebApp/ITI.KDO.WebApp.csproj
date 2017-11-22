@@ -37,5 +37,7 @@
     <Folder Include="Models\UserViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
     <ProjectReference Include="..\ITI.KDO.DAL\ITI.KDO.DAL.csproj" />
+  </ItemGroup>
 </Project>
