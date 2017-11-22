@@ -1,4 +1,4 @@
-create proc dbo.sPresentCreate
+create procedure dbo.sPresentCreate
 (
 	@PresentName nvarchar(32),
 	@Price float,

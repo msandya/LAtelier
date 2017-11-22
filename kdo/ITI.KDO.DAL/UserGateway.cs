@@ -16,6 +16,7 @@ namespace ITI.KDO.DAL
             _connectionString = connectionString;
         }
 
+
         /// <summary>
         /// Create User With a Password
         /// </summary>
@@ -39,11 +40,17 @@ namespace ITI.KDO.DAL
                     commandType: CommandType.StoredProcedure);
             }
         }
+
         /// <summary>
         /// Find User with the GoogleId
         /// </summary>
         /// <param name="googleId"></param>
         /// <returns></returns>
+        public User FindByGoogleId(int googleId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                return con.Query<User>(
                         @"select u.UserId,
                                 u.FirstName,
                                 u.LastName,
@@ -57,11 +64,17 @@ namespace ITI.KDO.DAL
                                 u.FacebookRefreshToken,
                                 u.FacebookId from dbo.vUser u
                           where u.GoogleId = @GoogleId",
-            /// <summary>
-            /// Find User with the FacebookId
-            /// </summary>
-            /// <param name="facebookId"></param>
-            /// <returns></returns>
+                        new { GoogleId = googleId })
+                    .FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Find User with the FacebookId
+        /// </summary>
+        /// <param name="facebookId"></param>
+        /// <returns></returns>
+        public User FindByFacebookId(int facebookId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -84,6 +97,7 @@ namespace ITI.KDO.DAL
             }
         }
 
+
         /// <summary>
         /// Create Google User
         /// </summary>
@@ -92,16 +106,17 @@ namespace ITI.KDO.DAL
         /// <param name="refreshToken"></param>
         /// <param name="firstName"></param>
         /// <param name="lastname"></param>
-        public void CreateGoogleUser(string email, string googleId, string refreshToken, string firstName, string lastname)
+        public void CreateGoogleUser(string email, string googleId, string refreshToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sGoogleUserCreate",
-                    new { Email = email, GoogleId = googleId, RefreshToken = refreshToken, FirstName = firstName, lastname = lastname },
+                    new { Email = email, GoogleId = googleId, RefreshToken = refreshToken, FirstName = 'N', lastname = 'N' },
                     commandType: CommandType.StoredProcedure);
             }
         }
+
         /// <summary>
         /// Create Facebook User
         /// </summary>
@@ -110,13 +125,13 @@ namespace ITI.KDO.DAL
         /// <param name="refreshToken"></param>
         /// <param name="firstName"></param>
         /// <param name="lastname"></param>
-        public void CreateFacebookUser(string email, string facebookId, string refreshToken, string firstName, string lastname)
+        public void CreateFacebookUser(string email, string facebookId, string accessToken, string firstName, string lastname)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sFacebookUserCreate",
-                    new { Email = email, FacebookId = facebookId, RefreshToken = refreshToken, FirstName = firstName, lastname = lastname },
+                    new { Email = email, FacebookId = facebookId, AccessToken = accessToken, FirstName = firstName, lastname = lastname },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -173,6 +188,7 @@ namespace ITI.KDO.DAL
                              u.BirthDate,
                              u.Phone,
                              u.Photo,
+                             u.[Password],
                              u.FacebookAccessToken,
                              u.GoogleRefreshToken
                       from dbo.vUser u
@@ -199,7 +215,7 @@ namespace ITI.KDO.DAL
                              u.Phone,
                              u.Photo,
                              u.FacebookAccessToken,
-                             u.GoogleRefreshToken
+                             u.GoogleRefreshToken,
                              u.GoogleId,
                              u.[Password],
                              u.FacebookId
@@ -270,7 +286,7 @@ namespace ITI.KDO.DAL
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
-                    "dbo.sUpdateUser",
+                    "dbo.sUserUpdate",
                     new { UserId = userId, FirstName = firstName, LastName = lastName, BirthDate = birthDate, Email = email, Phone = phone, Photo = photo },
                     commandType: CommandType.StoredProcedure);
             }
@@ -295,28 +311,29 @@ namespace ITI.KDO.DAL
         /// </summary>
         /// <param name="googleId"></param>
         /// <param name="refreshToken"></param>
-        public void UpdateGoogleToken(string googleId, string refreshToken)
+        public void UpdateGoogleToken(int userId, string googleId, string refreshToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sGoogleUserUpdate",
-                    new { GoogleId = googleId, RefreshToken = refreshToken },
+                    new { UserId = userId, GoogleId = googleId, RefreshToken = refreshToken },
                     commandType: CommandType.StoredProcedure);
             }
         }
         /// <summary>
         /// Update FacebookToken
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="facebookId"></param>
         /// <param name="refreshToken"></param>
-        public void UpdateFacebookToken(string facebookId, string refreshToken)
+        public void UpdateFacebookToken(int userId, string facebookId, string accessToken)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
                     "dbo.sFacebookUserUpdate",
-                    new { FacebookId = facebookId, RefreshToken = refreshToken },
+                    new { UserId = userId, FacebookId = facebookId, AccessToken = accessToken },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -327,17 +344,6 @@ namespace ITI.KDO.DAL
                 con.Execute(
                     "dbo.sGoogleUserUpdate",
                     new { UserId = userId, refreshToken = refreshToken },
-                    commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        public void UpdateFacebookToken(int userId, string facebookId, string accessToken)
-        {
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Execute(
-                    "dbo.sFacebookUserUpdate",
-                    new { UserId = userId, FacebookId = facebookId, AccessToken = accessToken },
                     commandType: CommandType.StoredProcedure);
             }
         }

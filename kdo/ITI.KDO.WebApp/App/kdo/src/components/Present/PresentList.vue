@@ -19,6 +19,7 @@
                     <th>Link Present</th>
                     <th>Category Present</th>
                     <th>User Id</th>
+                    <th>Options</th>
                 </tr>
             </thead>
 
@@ -34,6 +35,10 @@
                     <td>{{ i.linkPresent }}</td>
                     <td>{{ i.categoryPresentId }}</td>
                     <td>{{ i.userId }}</td>
+                    <td>
+                        <router-link :to="`presents/edit/${i.presentId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
+                        <a href="#" @click="deletePresent(i.presentId)"><i class="glyphicon glyphicon-remove"></i></a>
+                    </td>
                 </tr>
             </tbody>
         </table>

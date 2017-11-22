@@ -111,12 +111,12 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
-        public bool CreateOrUpdateGoogleUser(string email,string refreshToken)
+        public bool CreateOrUpdateGoogleUser(string email, string googleId, string refreshToken)
         {
             User user = _userGateway.FindByEmail(email);
             if (user == null)
             {
-                _userGateway.CreateGoogleUser(email, refreshToken);
+                _userGateway.CreateGoogleUser(email, googleId, refreshToken);
                 return true;
             }
             if (user.GoogleRefreshToken == string.Empty)
@@ -125,7 +125,7 @@ namespace ITI.KDO.WebApp.Services
             }
             else
             {
-                _userGateway.UpdateGoogleToken( user.UserId, refreshToken);
+                _userGateway.UpdateGoogleToken(user.UserId, refreshToken);
             }
             return false;
         }
@@ -135,7 +135,7 @@ namespace ITI.KDO.WebApp.Services
             User user = _userGateway.FindByEmail(email);
             if(user == null)
             {
-                _userGateway.CreateFacebookUser(email, facebookId, refreshToken);
+                _userGateway.CreateFacebookUser(email, facebookId, refreshToken, "N", "N");
                 return true;
             }
             if(user.FacebookAccessToken == string.Empty)

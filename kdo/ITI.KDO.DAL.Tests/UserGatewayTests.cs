@@ -61,13 +61,13 @@ namespace ITI.KDO.DAL.Tests
             string googleId = "azertyuiop";
             string refreshToken = "azertyuiop";
 
-            sut.CreateGoogleUser(email, googleId, refreshToken, firstName, lastName);
+            sut.CreateGoogleUser(email, googleId, refreshToken);
             User user = sut.FindByEmail(email);
 
             Assert.That(user.GoogleRefreshToken, Is.EqualTo(refreshToken));
 
             refreshToken = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            sut.UpdateGoogleToken(googleId, refreshToken);
+            sut.UpdateGoogleToken(user.UserId, googleId, refreshToken);
 
             user = sut.FindById(user.UserId);
             Assert.That(user.GoogleRefreshToken, Is.EqualTo(refreshToken));
@@ -88,13 +88,13 @@ namespace ITI.KDO.DAL.Tests
             sut.CreateFacebookUser(email, facebookId, refreshToken, firstName, lastName);
             User user = sut.FindByEmail(email);
 
-            Assert.That(user.FacebookRefreshToken, Is.EqualTo(refreshToken));
+            Assert.That(user.FacebookAccessToken, Is.EqualTo(refreshToken));
 
             refreshToken = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            sut.UpdateFacebookToken(facebookId, refreshToken);
+            sut.UpdateFacebookToken(user.UserId, facebookId, refreshToken);
 
             user = sut.FindById(user.UserId);
-            Assert.That(user.FacebookRefreshToken, Is.EqualTo(refreshToken));
+            Assert.That(user.FacebookAccessToken, Is.EqualTo(refreshToken));
 
             sut.Delete(user.UserId);
         }

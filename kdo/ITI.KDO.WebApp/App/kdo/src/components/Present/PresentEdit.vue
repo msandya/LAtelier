@@ -45,8 +45,10 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-  import PresentApiService from '../../services/PresentApiService';
+    import { mapActions } from 'vuex';
+    import PresentApiService from '../../services/PresentApiService';
+    import AuthService from "../../services/AuthService";
+    import UserApiService from "../../services/UserApiService";
 
   export default {
     data() {
@@ -66,7 +68,7 @@
             try {
                 // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
                 // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                this.item = await PresentApiPresent.getStudentAsync(this.id);
+                this.item = await PresentApiPresent.getPresentAsync(this.id);
             }
             catch(error) {
                 // So if an exception occurred, we redirect the user to the students list.
