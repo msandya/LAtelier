@@ -1,4 +1,4 @@
-create proc dbo.sUpdateUser
+create proc dbo.sUserUpdate
 (
     @UserId int,
 	@FirstName nvarchar(32),
@@ -17,7 +17,7 @@ begin
 		Birthdate = @Birthdate,
 		Email = @Email,
 		Phone = @Phone,
-		Photo = @Photo  
+		Photo = @Photo
 	where UserId = @UserId;
 	return 0;
 end;

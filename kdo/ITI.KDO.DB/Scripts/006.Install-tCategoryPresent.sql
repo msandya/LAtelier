@@ -7,3 +7,9 @@ create table dbo.tCategoryPresent
     constraint PK_tCategoryPresent_CategoryPresentId primary key(CategoryPresentId),
     constraint CK_tPresents_PresentName check(CategoryName <> N''),
 );
+insert into dbo.tCategoryPresent(CategoryName, Link) 
+               values('Laptop', 'www.azeazea'); 
+insert into dbo.tCategoryPresent(CategoryName, Link) 
+               values('TV', 'www.azeaze');
+insert into dbo.tCategoryPresent(CategoryName, Link) 
+               values('Food', 'www.azeaze');

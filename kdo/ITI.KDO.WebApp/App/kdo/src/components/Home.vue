@@ -24,7 +24,7 @@
           </b-navbar-nav>
 
           <b-navbar-nav v-if="auth.isConnected">
-            <b-nav-item href="users/information">Profil</b-nav-item>
+            <b-nav-item href="userProfile">Profil</b-nav-item>
             <b-nav-item href="#"@click="logout()">Logout</b-nav-item>
           </b-navbar-nav>
 

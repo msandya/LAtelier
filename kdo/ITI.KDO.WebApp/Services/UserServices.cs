@@ -26,17 +26,7 @@ namespace ITI.KDO.WebApp.Services
 
             return true;
         }
-
-        /*public bool CreatePasswordUser(string email)
-        {
-            if(_userGateway.)
-        }*/
-
-        /*public User FindGoogleUser(string googleId)
-        {
-            return _userGateway.FindByGoogleId(googleId);
-        }*/
-
+        
         public IEnumerable<string> GetAuthenticationProviders(string userId)
         {
             return _userGateway.GetAuthenticationProviders(userId);
@@ -101,7 +91,7 @@ namespace ITI.KDO.WebApp.Services
             if (!IsNameValid(firstName)) return Result.Failure<User>(Status.BadRequest, "The first name is invalid.");
             if (!IsNameValid(lastName)) return Result.Failure<User>(Status.BadRequest, "The last name is invalid.");
             if (!IsNameValid(email)) return Result.Failure<User>(Status.BadRequest, "The email is invalid.");
-            if (!IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (phone != null && !IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
 
             _userGateway.Update(userId, firstName, lastName, birthdate, email, phone, photo);
             User user = _userGateway.FindById(userId);

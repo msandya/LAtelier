@@ -45,9 +45,9 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-    import AuthService from "../services/AuthService";
-    import UserApiService from "../services/UserApiService";
-    import "../directives/requiredProviders";
+    import AuthService from "../../services/AuthService";
+    import UserApiService from "../../services/UserApiService";
+    import "../../directives/requiredProviders";
     import Vue from 'vue';
     import Vuex from 'vuex';
 
@@ -107,5 +107,5 @@ import { mapGetters, mapActions } from "vuex";
 </style>
 
 <style lang="less">
-    @import "../styles/global.less";
+    @import "../../styles/global.less";
 </style>

@@ -21,7 +21,7 @@ namespace ITI.KDO.DAL
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
-                    "dbo.sUserAddPassword",
+                    "dbo.sPasswordUserCreate",
                     new
                     {
                         Email = email,
@@ -37,49 +37,29 @@ namespace ITI.KDO.DAL
         }
 
 
-        //public IEnumerable<string> GetAuthenticationProviders(string userId)
-        //{
-        //    using(SqlConnection con = new SqlConnection(_connectionString))
-        //    {
-        //        return con.Query<string>(
-        //            "select p.ProviderName from dbo.vAuthenticationProvider p where p.UserId = @UserId",
-        //            new { UserId = userId });
-        //    }
-        //}
-
-        //public User FindByGoogleId(string googleId)
-        //{
-        //    using (SqlConnection con = new SqlConnection(_connectionString))
-        //    {
-        //        return con.Query<User>(
-        //                "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookRefreshToken, u.FacebookId from dbo.vUser u where u.GoogleId = @GoogleId",
-        //                new { GoogleId = googleId })
-        //            .FirstOrDefault();
-        //    }
-        //}
-
-
         public User FindByFacebookId(string facebookId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 return con.Query<User>(
-                        "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.GoogleId, u.FacebookAccessToken, u.FacebookId from dbo.vUser u where u.FacebookId = @FacebookId",
+                        @"select u.UserId, 
+                                 u.FirstName, 
+                                 u.LastName, 
+                                 u.Birthdate,
+                                 u.Email, 
+                                 u.Phone, 
+                                 u.Photo, 
+                                 u.[Password], 
+                                 u.GoogleRefreshToken, 
+                                 u.GoogleId, 
+                                 u.FacebookAccessToken, 
+                                 u.FacebookId 
+                        from dbo.vUser u 
+                        where u.FacebookId = @FacebookId",
                         new { FacebookId = facebookId })
                     .FirstOrDefault();
             }
         }
-
-        //public User FindByFacebookId(string facebookId)
-        //{
-        //    using (SqlConnection con = new SqlConnection(_connectionString))
-        //    {
-        //        return con.Query<User>(
-        //                "select u.UserId, u.FirstName, u.LastName, u.Birthdate,u.Email, u.Phone, u.Photo, u.[Password], u.GoogleRefreshToken, u.FacebookRefreshToken from dbo.vUser u where u.FacebookId = @FacebookId",
-        //                new { FacebookId = facebookId })
-        //            .FirstOrDefault();
-        //    }
-        //}
 
 
         public void CreateGoogleUser(string email,string refreshToken)
@@ -202,7 +182,7 @@ namespace ITI.KDO.DAL
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Execute(
-                    "dbo.sUpdateUser",
+                    "dbo.sUserUpdate",
                     new { UserId = userId, FirstName = firstName, LastName = lastName, BirthDate = birthDate, Email = email, Phone = phone, Photo = photo },
                     commandType: CommandType.StoredProcedure);
             }
@@ -267,7 +247,9 @@ namespace ITI.KDO.DAL
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 return con.Query<string>(
-                    "select p.ProviderName from dbo.vAuthenticationProvider p where p.UserId = @UserId",
+                    @"select p.ProviderName 
+                      from dbo.vAuthenticationProvider p 
+                      where p.UserId = @UserId",
                     new { UserId = userId });
             }
         }
