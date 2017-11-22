@@ -3,15 +3,12 @@ create procedure dbo.sPasswordUserCreate
 	@Email nvarchar(128),
 	@FirstName nvarchar(150),
 	@LastName nvarchar(150),
-	@Birthdate date,
-	@Phone nvarchar(12),
-    @Password varbinary(128),
-	@Photo nvarchar(150)
+    @Password varbinary(128)
 )
 as
 begin
-    insert into dbo.tUser(Email, FirstName, LastName, Birthdate, Phone, Photo) 
-				   values(@Email, @FirstName, @LastName, @Birthdate, @Phone,@Photo);
+    insert into dbo.tUser(Email, FirstName, LastName) 
+				   values(@Email, @FirstName, @LastName);
     declare @userId int;
     select @userId = scope_identity();
     insert into dbo.tPasswordUser(UserId,  [Password])

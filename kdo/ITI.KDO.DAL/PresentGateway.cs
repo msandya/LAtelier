@@ -115,55 +115,76 @@ namespace ITI.KDO.DAL
             {
                 return con.Query<Present>(
                     @"select p.UserId,
+		                     p.PresentId,
+		                     p.PresentName,
+		                     p.Price,
                              p.CategoryPresentId,
-                             p.CategoryName,
-                             p.Link,
-                             p.PresentId,
-                             p.PresentName,
-                             p.Price,
-                             p.LinkPresent
-                      from dbo.vPresent p;");
+		                     p.LinkPresent		
+	                from dbo.vUserPresent p
+                    where p.UserId = @UserId",
+                    new { UserId = userId })
+                    .FirstOrDefault(); ;
             }
         }
-
-        public Present FindByPresentId(int presentId)
+        /// <summary>
+        /// Add Present to User and return the PresentId
+        /// </summary>
+        /// <param name="presentName"></param>
+        /// <param name="price"></param>
+        /// <param name="linkPresent"></param>
+        /// <param name="categoryPresentId"></param>
+        /// <param name="userId"></param>
+        public int AddToUser(string presentName, float price, string linkPresent, int categoryPresentId, int userId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                return con.Query<Present>(
-                        @"select p.UserId,
-                                 p.CategoryPresentId,
-                                 p.CategoryName,
-                                 p.Link,
-                                 p.PresentId,
-                                 p.PresentName,
-                                 p.Price,
-                                 p.LinkPresent
-                          from dbo.vPresent p
-                          where p.PresentId = @PresentId;",
-                        new { PresentId = presentId })
-                    .FirstOrDefault();
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@PresentName", presentName, DbType.String);
+                dynamicParameters.Add("@Price", price, DbType.Decimal);
+                dynamicParameters.Add("@LinkPresent", linkPresent, DbType.String);
+                dynamicParameters.Add("@CategoryPresentId", categoryPresentId, DbType.Int32);
+                dynamicParameters.Add("@UserId", userId, DbType.Int32);
+                dynamicParameters.Add("@PresentId",DbType.Int32, direction: ParameterDirection.ReturnValue);
+
+                con.Execute(
+                    "dbo.sAddUserPresent",
+                    dynamicParameters,
+                    commandType: CommandType.StoredProcedure
+                );
+                return dynamicParameters.Get<int>("@PresentId");
             }
         }
-
-        public Present FindByName(string presentName)
+        /// <summary>
+        /// Update Present Of User
+        /// </summary>
+        /// <param name="presentName"></param>
+        /// <param name="price"></param>
+        /// <param name="linkPresent"></param>
+        /// <param name="categoryPresentId"></param>
+        /// <param name="userId"></param>
+        public void Update(string presentName, float price, string linkPresent, int categoryPresentId, int userId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                return con.Query<Present>(
-                        @"select p.UserId,
-                                 p.CategoryPresentId,
-                                 p.CategoryName,
-                                 p.Link,
-                                 p.PresentId,
-                                 p.PresentName,
-                                 p.Price,
-                                 p.LinkPresent
-                          from dbo.vPresent p
-                          where p.PresentName = @PresentName;",
-                        new { PresentName = presentName })
-                    .FirstOrDefault();
+                con.Execute(
+               "dbo.sUpdatePresent",
+               new { PresentName = presentName, Price = price, linkPresent = linkPresent, categoryPresentId = categoryPresentId, userId = userId },
+               commandType: CommandType.StoredProcedure);
             }
+        }
+        /// <summary>
+        /// Delete Present Of User
+        /// </summary>
+        /// <param name="presentId"></param>
+        /// <param name="userId"></param>
+        public void Delete(int presentId, int userId)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Execute(
+                    "dbo.sDeletePresent",
+                    new { PresentId = presentId, UserId = userId },
+                    commandType: CommandType.StoredProcedure);
         }
 
         public void Create(string presentName, float price, string linkPresent, int categoryPresentId, int userId)

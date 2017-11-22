@@ -21,11 +21,3 @@ begin
 	where UserId = @UserId;
 	return 0;
 end;
-
-
-
-
-
-
-		
-

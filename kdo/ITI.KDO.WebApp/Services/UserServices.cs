@@ -22,7 +22,7 @@ namespace ITI.KDO.WebApp.Services
         public bool CreatePasswordUser(RegisterViewModel model)
         {
             if (_userGateway.FindByEmail(model.Email) != null) return false;
-            _userGateway.CreatePasswordUser(model.Email, model.FirstName, model.LastName, model.Birthdate, model.Phone, _passwordHasher.HashPassword(model.Password), model.Photo);
+            _userGateway.CreateUserWithPassword(model.Email, model.FirstName, model.LastName, _passwordHasher.HashPassword(model.Password));
 
             return true;
         }

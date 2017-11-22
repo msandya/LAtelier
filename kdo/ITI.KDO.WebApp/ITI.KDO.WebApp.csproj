@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,8 +37,5 @@
     <Folder Include="Models\UserViewModels\" />
   </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\ITI.KDO.DAL\ITI.KDO.DAL.csproj" />
-  </ItemGroup>
-
 </Project>
