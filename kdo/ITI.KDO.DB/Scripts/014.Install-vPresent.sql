@@ -1,4 +1,4 @@
-create view dbo.vUserPresent
+create view dbo.vPresent
 as
 	select
 		UserId = p.UserId,

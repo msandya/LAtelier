@@ -1,4 +1,4 @@
-create procedure dbo.sUserAddPassword
+create procedure dbo.sPasswordUserCreate
 (
 	@Email nvarchar(128),
 	@FirstName nvarchar(150),

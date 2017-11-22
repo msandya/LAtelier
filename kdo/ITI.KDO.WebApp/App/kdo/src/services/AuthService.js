@@ -1,3 +1,5 @@
+import { getAsync, putAsync } from '../helpers/apiHelper';
+
 class AuthService {
     constructor() {
         this.allowedOrigins = [];
@@ -24,7 +26,6 @@ class AuthService {
 
     get accessToken() {
         var identity = this.identity;
-
         return identity ? identity.bearer.access_token : null;
     }
 
@@ -40,7 +41,6 @@ class AuthService {
 
     get boundProviders() {
         var identity = this.identity;
-
         return identity ? identity.boundProviders : [];
     }
 
@@ -63,8 +63,6 @@ class AuthService {
         else if (data.type == 'signedOut') this.onSignedOut();
     }
 
-
-
     registerAuthenticatedCallback(cb) {
         this.authenticatedCallbacks.push(cb);
     }
@@ -84,7 +82,6 @@ class AuthService {
     login(selectedProvider) {
         var provider = this.providers[selectedProvider];
         var popup = window.open(provider.endpoint, "Login to KDO", "menubar=no, status=no, scrollbars=no, menubar=no, width=700, height=700");
-        //var popup = window.open(provider.endpoint);
     }
 
     modifyPassword() {

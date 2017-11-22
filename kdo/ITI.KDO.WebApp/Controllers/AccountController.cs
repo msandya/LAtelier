@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +9,13 @@ using ITI.KDO.WebApp.Services;
 using ITI.KDO.WebApp.Models.AccountViewModels;
 using ITI.KDO.DAL;
 using ITI.KDO.WebApp.Authentification;
+using Mvc.Client.Extensions;
+using Microsoft.AspNetCore.Http.Authentication;
 
 namespace ITI.KDO.WebApp.Controllers
 {
+    //controller chứa các action method có tác dụng xác thực người dùng như Login, Register, ForgotPassword,...
+    //controller chứa các action method có tác dụng quản lý user (khi user đã login vào web) như ChangePassword, SetPassword, ...
     public class AccountController : Controller
     {
         readonly UserServices _userService;
@@ -58,6 +62,47 @@ namespace ITI.KDO.WebApp.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
+        public async Task<IActionResult> LogOff()
+        {
+            await HttpContext.Authentication.SignOutAsync(CookieAuthentication.AuthenticationScheme);
+            ViewData["NoLayout"] = true;
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin([FromQuery] string provider)
+        {
+            // Note: the "provider" parameter corresponds to the external
+            // authentication provider choosen by the user agent.
+            if (string.IsNullOrWhiteSpace(provider))
+            {
+                return BadRequest();
+            }
+
+            if (!HttpContext.IsProviderSupported(provider))
+            {
+                return BadRequest();
+            }
+
+            // Instruct the middleware corresponding to the requested external identity
+            // provider to redirect the user agent to its own authorization endpoint.
+            // Note: the authenticationScheme parameter must match the value configured in Startup.cs
+            string redirectUri = Url.Action(nameof(ExternalLoginCallback), "Account");
+            return Challenge(new AuthenticationProperties { RedirectUri = redirectUri }, provider);
+        }
+
+
+        [HttpGet]
+        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
+        public IActionResult ExternalLoginCallback()
+        {
+            return RedirectToAction(nameof(Authenticated));
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -92,6 +137,8 @@ namespace ITI.KDO.WebApp.Controllers
             return View();
         }
 
+        // Nội dung action này đơn giản chỉ trả về 1 view Registe. 
+        // Nội dung của view Register được tìm thấy file Views/Account/Register.cshtml. 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -114,24 +161,17 @@ namespace ITI.KDO.WebApp.Controllers
 
         [HttpGet]
         [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
-        public async Task<IActionResult> LogOff()
-        {
-            await HttpContext.Authentication.SignOutAsync(CookieAuthentication.AuthenticationScheme);
-            ViewData["NoLayout"] = true;
-            return View();
-        }
-
-        [HttpGet]
-        [Authorize(ActiveAuthenticationSchemes = CookieAuthentication.AuthenticationScheme)]
         public IActionResult Authenticated()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             string email = User.FindFirst(ClaimTypes.Email).Value;
             Token token = _tokenService.GenerateToken(userId, email);
-            ViewData["BreachPadding"] = GetBreachPadding();
+            IEnumerable<string> providers = _userService.GetAuthenticationProviders(userId);
+            ViewData["BreachPadding"] = GetBreachPadding(); // Mitigate BREACH attack. See http://www.breachattack.com/
             ViewData["Token"] = token;
             ViewData["Email"] = email;
             ViewData["NoLayout"] = true;
+            ViewData["Providers"] = providers;
             return View();
         }
 

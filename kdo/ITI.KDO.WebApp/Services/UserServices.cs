@@ -26,6 +26,11 @@ namespace ITI.KDO.WebApp.Services
 
             return true;
         }
+        
+        public IEnumerable<string> GetAuthenticationProviders(string userId)
+        {
+            return _userGateway.GetAuthenticationProviders(userId);
+        }
 
         public User FindUserPasswordHashed(string email)
         {
@@ -44,6 +49,11 @@ namespace ITI.KDO.WebApp.Services
                     return user;
             } 
             return null;
+        }
+
+        public User FindUser(string email)
+        {
+            return _userGateway.FindByEmail(email);
         }
 
         public User FindUserByEmail(string email) => _userGateway.FindByEmail(email);
@@ -81,8 +91,7 @@ namespace ITI.KDO.WebApp.Services
             if (!IsNameValid(firstName)) return Result.Failure<User>(Status.BadRequest, "The first name is invalid.");
             if (!IsNameValid(lastName)) return Result.Failure<User>(Status.BadRequest, "The last name is invalid.");
             if (!IsNameValid(email)) return Result.Failure<User>(Status.BadRequest, "The email is invalid.");
-            if (!IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
-            if (!IsPhotoValid(photo)) return Result.Failure<User>(Status.BadRequest, "The photo is invalid.");
+            if (phone != null && !IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
 
             _userGateway.Update(userId, firstName, lastName, birthdate, email, phone, photo);
             User user = _userGateway.FindById(userId);
@@ -102,6 +111,43 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
+        public bool CreateOrUpdateGoogleUser(string email,string refreshToken)
+        {
+            User user = _userGateway.FindByEmail(email);
+            if (user == null)
+            {
+                _userGateway.CreateGoogleUser(email, refreshToken);
+                return true;
+            }
+            if (user.GoogleRefreshToken == string.Empty)
+            {
+                _userGateway.AddGoogleToken(user.UserId, refreshToken);
+            }
+            else
+            {
+                _userGateway.UpdateGoogleToken( user.UserId, refreshToken);
+            }
+            return false;
+        }
+
+        public bool CreateOrUpdateFacebookUser(string email, string facebookId, string refreshToken)
+        {
+            User user = _userGateway.FindByEmail(email);
+            if(user == null)
+            {
+                _userGateway.CreateFacebookUser(email, facebookId, refreshToken);
+                return true;
+            }
+            if(user.FacebookAccessToken == string.Empty)
+            {
+                _userGateway.AddFacebookToken(user.UserId, facebookId, refreshToken);
+            }
+            else
+            {
+                _userGateway.UpdateFacebookToken(user.UserId, user.FacebookId, refreshToken);
+            }
+            return false;
+        }
 
     }
 }

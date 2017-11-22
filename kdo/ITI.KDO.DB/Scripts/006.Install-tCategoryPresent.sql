@@ -11,3 +11,5 @@ insert into dbo.tCategoryPresent(CategoryName, Link)
                values('Informatique', 'www.azeazea');
 insert into dbo.tCategoryPresent(CategoryName, Link)
                values('Electro-ménagé', 'www.azeazea');
+insert into dbo.tCategoryPresent(CategoryName, Link) 
+               values('Food', 'www.azeaze');

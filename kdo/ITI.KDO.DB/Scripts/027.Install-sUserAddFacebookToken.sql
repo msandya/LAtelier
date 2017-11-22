@@ -1,8 +1,6 @@
 create procedure dbo.sUserAddFacebookToken
 (
     @UserId       int,
-	@Firstname nvarchar(32),
-	@Lastname nvarchar(32),
     @FacebookId     varchar(32),
     @RefreshToken varchar(64)
 )

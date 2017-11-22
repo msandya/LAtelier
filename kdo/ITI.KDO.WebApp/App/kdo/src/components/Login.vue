@@ -1,10 +1,6 @@
 <template>
     <div>
-        <div class="text-center">
-            <div class="page-header">
-                <h1>WELCOME TO KDO</h1>
-            </div>
-
+        <div class="text-center" style="padding: 50px">
             <button type="button" @click="login('Google')" class="btn btn-lg btn-block btn-primary"><i class="fa fa-google" aria-hidden="true"></i> Se connecter via Google</button>
             <button type="button" @click="login('GitHub')" class="btn btn-lg btn-block btn-primary"><i class="fa fa-github" aria-hidden="true"></i> Se connecter via GitHub</button>
             <button type="button" @click="login('Base')" class="btn btn-lg btn-block btn-default">Se connecter via KDO</button>
@@ -48,7 +44,6 @@ export default {
 
 <style lang="less">
 iframe {
-  width: 100%;
   height: 600px;
 }
 </style>

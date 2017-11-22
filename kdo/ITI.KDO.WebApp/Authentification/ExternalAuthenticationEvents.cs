@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ITI.KDO.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using ITI.KDO.WebApp.Authentication;
 using ITI.KDO.WebApp.Authentification;
+using ITI.KDO.DAL;
 
 namespace ITI.KDO.WebApp.Authentication
 {
@@ -29,6 +30,7 @@ namespace ITI.KDO.WebApp.Authentication
 
         ClaimsPrincipal CreatePrincipal( User user )
         {
+            if (user == null) throw new ArgumentException("user is null", nameof(user));
             List<Claim> claims = new List<Claim>
             {
                 new Claim( ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String ),

@@ -1,22 +1,29 @@
-import 'babel-polyfill'
+import 'babel-polyfill';
 
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
 import $ from 'jquery';
 import Vuex from 'vuex';
-import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './vuex/store';
 import VueRouter from 'vue-router';
 
 import App from './components/App.vue';
 import Acc from './components/Acc.vue';
-
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Logout from './components/Logout.vue';
 
+
+import UserProfile from './components/user/UserProfile.vue';
+import UserProfileEdit from './components/user/UserProfileEdit.vue';
+
+import PresentList from './components/present/PresentList.vue';
+import PresentEdit from './components/present/PresentEdit.vue';
+
 import AppDefault from './components/AppDefault.vue';
 
-import Test from './components/Test.vue';
 //import Register from './components/Register.vue';
 
 //import User from './components/User/User.vue';
@@ -27,7 +34,9 @@ import Test from './components/Test.vue';
 
 import AuthService from './services/AuthService';
 
+
 Vue.use(VueRouter);
+Vue.use(BootstrapVue);
 
 /**
  * Filter for routes requiring an authenticated user
@@ -65,11 +74,15 @@ const router = new VueRouter({
         { path: '/logout', component: Logout, beforeEnter: requireAuth },
         { path: '/acc', component: Acc, beforeEnter: requireAuth },
 
+        { path: '/userProfile', component: UserProfile, beforeEnter: requireAuth },
+        { path: '/userProfile/edit', component: UserProfileEdit, beforeEnter: requireAuth },
+
         { path: '/appDefault', component: AppDefault },
 
-        { path: '', component: App, beforeEnter: requireAuth },
+        { path: '/presents', component: PresentList, beforeEnter: requireAuth },
+        { path: '/presents/:mode([create|edit]+)/:id?', component: PresentEdit, beforeEnter: requireAuth },
 
-        { path: '/test', component: Test, beforeEnter: requireAuth },
+        { path: '', component: App, beforeEnter: requireAuth },
 
         //{ path: '/users/information', component: User, beforeEnter: requireAuth },
         //{ path: '/users/users/modiMP', component: UserModificationMP, beforeEnter: requireAuth },
@@ -108,8 +121,8 @@ AuthService.providers = {
     'Google': {
         endpoint: '/Account/ExternalLogin?provider=Google'
     },
-    'GitHub': {
-        endpoint: '/Account/ExternalLogin?provider=GitHub'
+    'Facebook': {
+        endpoint: '/Account/ExternalLogin?provider=Facebook'
     },
 };
 AuthService.appRedirect = () => router.replace('/app');
