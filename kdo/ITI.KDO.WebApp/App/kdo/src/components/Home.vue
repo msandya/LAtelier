@@ -19,12 +19,21 @@
           </b-navbar-brand>
 
           <b-navbar-nav v-if="!auth.isConnected">
-            <b-nav-item href="#" @click="login()">Sign In</b-nav-item>
+            <b-nav-item-dropdown left>
+              <!-- Using button-content slot -->
+              <template slot="button-content">
+                Sign In
+              </template>
+              <b-dropdown-item type="button" @click="login('Google')" class="btn btn-lg btn-block btn-primary">Se connecter via Google</b-dropdown-item>
+              <b-dropdown-item type="button" @click="login('Facebook')" class="btn btn-lg btn-block btn-primary">Se connecter via Facebook</b-dropdown-item>
+              <b-dropdown-item type="button" @click="login('Base')" class="btn btn-lg btn-block btn-primary">Se connecter via KDO</b-dropdown-item>
+            </b-nav-item-dropdown>
+
             <b-nav-item href="#" @click="register()">Sign Up</b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav v-if="auth.isConnected">
-            <b-nav-item href="users/information">Profil</b-nav-item>
+            <b-nav-item v-b-toggle.collapse1 href="#">Profil</b-nav-item>
             <b-nav-item href="#"@click="logout()">Logout</b-nav-item>
           </b-navbar-nav>
 
@@ -61,14 +70,22 @@ export default {
     };
   },
 
+  mounted() {
+    AuthService.registerAuthenticatedCallback(() => this.onAuthenticated());
+  },
+
+  beforeDestroy() {
+    AuthService.removeAuthenticatedCallback(() => this.onAuthenticated());
+  },
+
   computed: {
     ...mapGetters(["isLoading"]),
     auth: () => AuthService
   },
 
   methods: {
-    login() {
-      this.$router.replace('/login');
+    login(provider) {
+      AuthService.login(provider);
     },
 
     register() {
@@ -77,6 +94,10 @@ export default {
 
     logout(){
       this.$router.replace('/logout');
+    },
+
+    onAuthenticated() {
+      this.$router.replace("/");
     }
   }
 };

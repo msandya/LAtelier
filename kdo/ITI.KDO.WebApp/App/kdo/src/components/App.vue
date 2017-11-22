@@ -5,6 +5,24 @@
     <b-row class="bg-dark" style="height: 100%; margin-top: 0px; margin-bottom: 0px;">
       <b-col md="2" class="bg-dark" style="height:100%;">
         <nav id="bd-docs-nav" class="bd-links navbar-collapse collapse show" style="padding-top: 30px">
+          <b-collapse id="collapse1" class="mt-2">
+            <b-card  bg-variant="light" text-variant="dark">
+              <p class="card-text">
+                mail :<br/>
+                {{auth.email}}<br/>
+                firstName :<br/>
+                {{item.firstName}}<br/>
+                lastname :<br/>
+                {{item.lastName}}<br/>
+                birthdate :<br/>
+                {{item.birthdate}}<br/>
+                phone :<br/>
+                {{item.phone}}<br/>
+              </p>
+              <b-button href="/Home/profile/edit" variant="primary">Edit profile</b-button>
+            </b-card>
+          </b-collapse>
+
           <b-nav-item variant="dark" href="#">Créer un évènement</b-nav-item>
           <b-nav-item variant="dark" href="#">Mes contacts</b-nav-item>
           <b-nav-item variant="dark" href="#">Calendrier</b-nav-item>
@@ -214,7 +232,7 @@
 
 <script>
 import AuthService from "../services/AuthService";
-import UserApiService from "../services/AuthService";
+import UserApiService from "../services/UserApiService";
 import { mapGetters, mapActions } from "vuex";
 import "../directives/requiredProviders";
 
@@ -223,6 +241,9 @@ export default {
   //The state, which is the source of truth that drives our app;
   data() {
     return {
+    userEmail: null,
+    item: {},
+
     slide1: 0,
     slide2: 0,
     sliding: null,
@@ -266,6 +287,10 @@ export default {
     }
   },
 
+  async mounted() {
+    var userEmail = AuthService.emailUser();
+    this.item = await UserApiService.getUserAsync(userEmail);
+  },
   
   computed: {
     ...mapGetters(["isLoading"]),
