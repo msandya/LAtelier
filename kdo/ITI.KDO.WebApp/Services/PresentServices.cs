@@ -15,9 +15,9 @@ namespace ITI.KDO.WebApp.Services
             _presentGateway = presentGateway;
         }
 
-        public Result<IEnumerable<Present>> GetAll()
+        public Result<IEnumerable<Present>> GetAllByUserId(int userId)
         {
-            return Result.Success(Status.Ok, _presentGateway.GetAll());
+            return Result.Success(Status.Ok, _presentGateway.GetAllByUserId(userId));
         }
 
         public Result<Present> GetById(int id)

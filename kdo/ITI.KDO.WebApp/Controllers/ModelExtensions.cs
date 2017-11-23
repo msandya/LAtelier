@@ -31,7 +31,8 @@ namespace ITI.KDO.WebApp.Controllers
                 PresentName = @this.PresentName,
                 Price = @this.Price,
                 LinkPresent = @this.LinkPresent,
-                CategoryPresentId = @this.CategoryPresentId
+                CategoryPresentId = @this.CategoryPresentId,
+                UserId = @this.UserId,
             };
         }
     }
