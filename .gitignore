@@ -1,0 +1,17 @@
+packages/
+.vs
+.vscode
+
+**/bin/
+**/obj/
+**/app/node_modules
+**/app/dll/
+**/appsettings.json
+
+#src/[web application name]/wwwroot/
+
+Private/
+Logs/
+**/TestResult.xml
+
+*.user
