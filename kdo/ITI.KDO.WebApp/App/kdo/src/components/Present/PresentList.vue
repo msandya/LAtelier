@@ -25,7 +25,7 @@
 
             <tbody>
                 <tr v-if="presentList.length == 0">
-                    <td colspan="6" class="text-center">We-want-a-present!!!</td>
+                    <td colspan="7" class="text-center">We-want-a-present!!!</td>
                 </tr>
 
                 <tr v-for="i of presentList">
@@ -36,8 +36,8 @@
                     <td>{{ i.categoryPresentId }}</td>
                     <td>{{ i.userId }}</td>
                     <td>
-                        <router-link :to="`presents/edit/${i.presentId}`"><i class="glyphicon glyphicon-pencil"></i></router-link>
-                        <a href="#" @click="deletePresent(i.presentId)"><i class="glyphicon glyphicon-remove"></i></a>
+                        <button @click="deletePresent(i.presentId)"  class="btn btn-primary">Remove</button>
+                        <router-link :to="`presents/edit/${i.presentId}`">Edit Present</router-link>
                     </td>
                 </tr>
             </tbody>
@@ -47,25 +47,31 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import PresentApiService from '../../services/PresentApiService';
+    import { mapActions } from 'vuex';
+    import AuthService from "../../services/AuthService";
+    import PresentApiService from '../../services/PresentApiService';
+    import UserApiService from '../../services/UserApiService';
 
   export default {
     data() {
-      return {
-        presentList: []
-      };
+        return {
+            user: {},
+            presentList: []
+        };
     },
 
     async mounted() {
-      await this.refreshList();
+        var userEmail = AuthService.emailUser();
+        this.user = await UserApiService.getUserAsync(userEmail);
+
+        await this.refreshList();
     },
 
     methods: {
       ...mapActions(['executeAsyncRequestOrDefault', 'executeAsyncRequest']),
 
       async refreshList() {
-          this.presentList = await PresentApiService.getPresentListAsync() || [];
+            this.presentList = await PresentApiService.getPresentListAsync(this.user.userId);
       },
 
       async deletePresent(presentId) {
@@ -82,8 +88,5 @@
 </script>
 
 <style lang="less">
-  iframe {
-    width: 100%;
-    height: 600px;
-  }
+
 </style>

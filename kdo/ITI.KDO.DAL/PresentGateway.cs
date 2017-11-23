@@ -109,7 +109,7 @@ namespace ITI.KDO.DAL
             }
         }
 
-        public IEnumerable<Present> GetAll()
+        public IEnumerable<Present> GetAllByUserId(int userId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -122,7 +122,9 @@ namespace ITI.KDO.DAL
                              p.PresentName,
                              p.Price,
                              p.LinkPresent
-                      from dbo.vPresent p;");
+                      from dbo.vPresent p
+                      where p.UserId = @UserId;",
+                    new { UserId = userId });
             }
         }
 
@@ -181,7 +183,8 @@ namespace ITI.KDO.DAL
                         new { PresentId = presentId })
                     .FirstOrDefault();
             }
-        }
+        }
+
 
         public Present FindByName(string presentName)
         {
@@ -201,6 +204,7 @@ namespace ITI.KDO.DAL
                         new { PresentName = presentName })
                     .FirstOrDefault();
             }
-        }
+        }
+
     }
 }

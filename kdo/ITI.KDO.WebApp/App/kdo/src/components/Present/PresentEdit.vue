@@ -31,12 +31,12 @@
 
             <div class="form-group">
                 <label>CategoryPresentId</label>
+                <b-dropdown right text="Menu">
+                    <tr v-for="i of presentList">
+                        <b-dropdown-item>Item 1</b-dropdown-item>
+                    </tr>
+                </b-dropdown>
                 <input type="text" v-model="item.categoryPresentId" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label>User Id</label>
-                <input type="text" v-model="item.userId" class="form-control">
             </div>
 
             <button type="submit" class="btn btn-primary">Sauvegarder</button>
@@ -47,12 +47,13 @@
 <script>
     import { mapActions } from 'vuex';
     import PresentApiService from '../../services/PresentApiService';
-    import AuthService from "../../services/AuthService";
     import UserApiService from "../../services/UserApiService";
+    import AuthService from "../../services/AuthService";
 
   export default {
     data() {
       return {
+        user:{},
         item:{},
         mode: null,
         id: null,
@@ -61,20 +62,22 @@
     },
 
     async mounted() {
-      this.mode = this.$route.params.mode;
-      this.id = this.$route.params.id;
-
-      if(this.mode == 'edit'){
-            try {
-                // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
-                // It is useful when we have to know if an error occurred, in order to adapt the user experience.
-                this.item = await PresentApiPresent.getPresentAsync(this.id);
+        var userEmail = AuthService.emailUser();
+        this.user = await UserApiService.getUserAsync(userEmail);
+        this.mode = this.$route.params.mode;
+        this.id = this.$route.params.id;
+        
+        if(this.mode == 'edit'){
+                try {
+                    // Here, we use "executeAsyncRequest" action. When an exception is thrown, it is not catched: you have to catch it.
+                    // It is useful when we have to know if an error occurred, in order to adapt the user experience.
+                    this.item = await this.executeAsyncRequest(() => PresentApiService.getPresentAsync(this.id));
+                }
+                catch(error) {
+                    // So if an exception occurred, we redirect the user to the students list.
+                    this.$router.replace('/presents');
+                }
             }
-            catch(error) {
-                // So if an exception occurred, we redirect the user to the students list.
-                this.$router.replace('/students');
-            }
-        }
     },
 
     methods: {
@@ -89,17 +92,17 @@
         if(!this.item.price) errors.push("Price");
         if(!this.item.linkPresent) errors.push("Link Present");
         if(!this.item.categoryPresentId) errors.push("Category Present Id");
-        if(!this.item.userId) errors.push("User Id");
 
         this.errors = errors;
 
         if(errors.length == 0) {
           try {
               if(this.mode == 'create') {
-                  await PresentApiService.createPresentAsync(this.item);
+                  this.item.userId = this.user.userId;
+                  await this.executeAsyncRequest(() => PresentApiService.createPresentAsync(this.item));
               }
               else {
-                  await PresentApiService.updatePresentAsync(this.item);
+                  await this.executeAsyncRequest(() => PresentApiService.updatePresentAsync(this.item)); 
               }
 
               this.$router.replace('/presents');
@@ -117,8 +120,5 @@
 </script>
 
 <style lang="less">
-iframe {
-  width: 100%;
-  height: 600px;
-}
+
 </style>

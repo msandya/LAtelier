@@ -83,11 +83,6 @@ const router = new VueRouter({
         { path: '/presents/:mode([create|edit]+)/:id?', component: PresentEdit, beforeEnter: requireAuth },
 
         { path: '', component: App, beforeEnter: requireAuth },
-
-        //{ path: '/users/information', component: User, beforeEnter: requireAuth },
-        //{ path: '/users/users/modiMP', component: UserModificationMP, beforeEnter: requireAuth },
-
-        //{ path: '/github/following', component: FollowingList, beforeEnter: requireAuth, meta: { requiredProviders: ['GitHub'] } }
     ]
 })
 

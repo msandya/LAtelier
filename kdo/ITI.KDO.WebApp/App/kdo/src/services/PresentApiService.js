@@ -7,8 +7,8 @@ class PresentApiService{
 
     }
 
-    async getPresentListAsync(){
-        return await getAsync(endpoint);
+    async getPresentListAsync(userId){
+        return await getAsync(`${endpoint}/${userId}/getPresentByUserId`);
     }
 
     async getPresentAsync(presentId){

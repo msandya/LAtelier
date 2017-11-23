@@ -22,10 +22,10 @@ namespace ITI.KDO.WebApp.Controllers
             _presentService = presentService;
         }
 
-        [HttpGet]
-        public IActionResult GetPresentList()
+        [HttpGet("{userId}/getPresentByUserId")]
+        public IActionResult GetPresentList(int userId)
         {
-            Result<IEnumerable<Present>> result = _presentService.GetAll();
+            Result<IEnumerable<Present>> result = _presentService.GetAllByUserId(userId);
             return this.CreateResult<IEnumerable<Present>, IEnumerable<PresentViewModel>>(result, o =>
             {
                 o.ToViewModel = x => x.Select(s => s.ToPresentViewModel());
