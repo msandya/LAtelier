@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
       <div class="page-header">
             <h1>Presents List</h1>
       </div>

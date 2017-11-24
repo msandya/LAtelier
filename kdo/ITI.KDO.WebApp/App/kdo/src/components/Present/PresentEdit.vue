@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">    
       <div class="page-header">
             <h1 v-if="mode == 'create'">Create a present</h1>
             <h1 v-else>Edit your present</h1>

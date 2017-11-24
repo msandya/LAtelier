@@ -24,9 +24,9 @@
               <template slot="button-content">
                 Sign In
               </template>
-              <b-dropdown-item type="button" @click="login('Google')" class="btn btn-lg btn-block btn-primary">Se connecter via Google</b-dropdown-item>
-              <b-dropdown-item type="button" @click="login('Facebook')" class="btn btn-lg btn-block btn-primary">Se connecter via Facebook</b-dropdown-item>
-              <b-dropdown-item type="button" @click="login('Base')" class="btn btn-lg btn-block btn-primary">Se connecter via KDO</b-dropdown-item>
+              <b-dropdown-item @click="login('Google')" class="btn btn-lg btn-block btn-primary">Se connecter via Google</b-dropdown-item>
+              <b-dropdown-item @click="login('Facebook')" class="btn btn-lg btn-block btn-primary">Se connecter via Facebook</b-dropdown-item>
+              <b-dropdown-item @click="login('Base')" class="btn btn-lg btn-block btn-primary">Se connecter via KDO</b-dropdown-item>
             </b-nav-item-dropdown>
 
             <b-nav-item href="#" @click="register()">Sign Up</b-nav-item>
@@ -34,7 +34,7 @@
 
           <b-navbar-nav v-if="auth.isConnected">
 
-            <b-nav-item v-if="$route.path != '/profile/edit'" v-b-toggle.collapse1 href="#">Profil</b-nav-item>
+            <b-nav-item v-if="$route.path != '/userProfile/edit'" v-b-toggle.collapse1 href="#">Profil</b-nav-item>
 
             <b-nav-item href="#"@click="logout()">Logout</b-nav-item>
           </b-navbar-nav>
