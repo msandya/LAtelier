@@ -33,7 +33,7 @@
           </b-navbar-nav>
 
           <b-navbar-nav v-if="auth.isConnected">
-            <b-nav-item v-b-toggle.collapse1 href="#">Profil</b-nav-item>
+            <b-nav-item v-if="$route.path != '/profile/edit'" v-b-toggle.collapse1 href="#">Profil</b-nav-item>
             <b-nav-item href="#"@click="logout()">Logout</b-nav-item>
           </b-navbar-nav>
 

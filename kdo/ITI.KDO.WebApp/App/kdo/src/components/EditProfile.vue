@@ -1,10 +1,9 @@
 <template>
     <div class="container">
         <div class="page-header">
-            <h1>EDIT PROFILE</h1>
+            <h1 style="margin: 20px;">Edit your profile</h1>
         </div>
         <form asp-controller="Account" asp-action="Register" method="post" @submit="onSubmit($event)">
-
             <div class="form-group">
                 <label asp-for="Email">Email : </label>
                 <input asp-for="Email" class="form-control" v-model="auth.email"/>

@@ -23,7 +23,7 @@
             </b-card>
           </b-collapse>
 
-          <b-nav-item variant="dark" href="#">Créer un évènement</b-nav-item>
+          <b-nav-item variant="dark" href="Home/test">Créer un évènement</b-nav-item>
           <b-nav-item variant="dark" href="#">Mes contacts</b-nav-item>
           <b-nav-item variant="dark" href="#">Calendrier</b-nav-item>
           <b-nav-item variant="dark" href="#">Ma liste de cadeau</b-nav-item>
@@ -47,7 +47,7 @@
           <b-carousel-slide img-blank img-alt="Blank image">
             <b-row>
               <b-col md="4">
-                <b-card title="Bulbizar"
+                <b-card title="bulbizarre"
                       img-src="https://img4.hostingpics.net/pics/518638Image1.png"
                       img-alt="Image"
                       img-top
