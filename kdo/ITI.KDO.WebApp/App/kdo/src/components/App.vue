@@ -20,6 +20,7 @@
                 {{item.phone}}<br/>
               </p>
               <b-button href="/Home/userProfile/edit" variant="primary">Edit profile</b-button>
+              <b-button href="/Account/ModifyPassword" variant="primary">Modify password</b-button>
             </b-card>
           </b-collapse>
 
