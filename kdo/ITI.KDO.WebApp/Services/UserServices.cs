@@ -22,21 +22,11 @@ namespace ITI.KDO.WebApp.Services
         public bool CreatePasswordUser(RegisterViewModel model)
         {
             if (_userGateway.FindByEmail(model.Email) != null) return false;
-            _userGateway.CreatePasswordUser(model.Email, model.FirstName, model.LastName, model.Birthdate, model.Phone, _passwordHasher.HashPassword(model.Password), model.Photo);
+            _userGateway.CreateUserWithPassword(model.Email, model.FirstName, model.LastName, _passwordHasher.HashPassword(model.Password));
 
             return true;
         }
-
-        /*public bool CreatePasswordUser(string email)
-        {
-            if(_userGateway.)
-        }*/
-
-        /*public User FindGoogleUser(string googleId)
-        {
-            return _userGateway.FindByGoogleId(googleId);
-        }*/
-
+        
         public IEnumerable<string> GetAuthenticationProviders(string userId)
         {
             return _userGateway.GetAuthenticationProviders(userId);
@@ -101,7 +91,7 @@ namespace ITI.KDO.WebApp.Services
             if (!IsNameValid(firstName)) return Result.Failure<User>(Status.BadRequest, "The first name is invalid.");
             if (!IsNameValid(lastName)) return Result.Failure<User>(Status.BadRequest, "The last name is invalid.");
             if (!IsNameValid(email)) return Result.Failure<User>(Status.BadRequest, "The email is invalid.");
-            if (!IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
+            if (phone != null && !IsPhoneTelValid(phone)) return Result.Failure<User>(Status.BadRequest, "The phone number is invalid.");
 
             _userGateway.Update(userId, firstName, lastName, birthdate, email, phone, photo);
             User user = _userGateway.FindById(userId);
@@ -121,12 +111,12 @@ namespace ITI.KDO.WebApp.Services
 
         bool IsPhotoValid(string photo) => !string.IsNullOrEmpty(photo);
 
-        public bool CreateOrUpdateGoogleUser(string email,string refreshToken)
+        public bool CreateOrUpdateGoogleUser(string email, string googleId, string refreshToken)
         {
             User user = _userGateway.FindByEmail(email);
             if (user == null)
             {
-                _userGateway.CreateGoogleUser(email, refreshToken);
+                _userGateway.CreateGoogleUser(email, googleId, refreshToken);
                 return true;
             }
             if (user.GoogleRefreshToken == string.Empty)
@@ -135,7 +125,7 @@ namespace ITI.KDO.WebApp.Services
             }
             else
             {
-                _userGateway.UpdateGoogleToken( user.UserId, refreshToken);
+                _userGateway.UpdateGoogleToken(user.UserId, refreshToken);
             }
             return false;
         }
@@ -145,7 +135,7 @@ namespace ITI.KDO.WebApp.Services
             User user = _userGateway.FindByEmail(email);
             if(user == null)
             {
-                _userGateway.CreateFacebookUser(email, facebookId, refreshToken);
+                _userGateway.CreateFacebookUser(email, facebookId, refreshToken, "N", "N");
                 return true;
             }
             if(user.FacebookAccessToken == string.Empty)

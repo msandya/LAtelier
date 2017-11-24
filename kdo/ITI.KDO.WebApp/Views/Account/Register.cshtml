@@ -12,6 +12,8 @@
     <div class="page-header">
         <h1>@ViewData["Title"]</h1>
     </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
     <form asp-controller="Account" asp-action="Register" method="post">
         @if (!ViewContext.ViewData.ModelState.IsValid)
         {

@@ -10,15 +10,10 @@ namespace ITI.KDO.WebApp.Authentication
             return @this.Identity.FindFirst(c => c.Type == ClaimTypes.Email).Value;
         }
 
-        //public static string GetGoogleId(this OAuthCreatingTicketContext @this)
-        //{
-        //    return @this.GetNameIdentifier();
-        //}
-
-        //public static int GetGithubId(this OAuthCreatingTicketContext @this)
-        //{
-        //    return int.Parse(@this.GetNameIdentifier());
-        //}
+        public static string GetGoogleId(this OAuthCreatingTicketContext @this)
+        {
+            return @this.GetNameIdentifier();
+        }
 
         public static string GetFacebookId(this OAuthCreatingTicketContext @this)
         {

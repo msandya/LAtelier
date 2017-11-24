@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "bootstrap":"^4.0.0-beta.2",
+    "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.1.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "glyphicons": "^0.2.0",
     "jquery": "^3.1.1",
     "vue": "^2.2.4",
+    "vue-awesome": "^2.3.4",
     "vue-router": "^2.3.0",
     "vuejs-paginator": "^2.0.1",
     "vuex": "^2.2.1"

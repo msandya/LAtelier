@@ -19,14 +19,14 @@
                 phone :<br/>
                 {{item.phone}}<br/>
               </p>
-              <b-button href="/Home/profile/edit" variant="primary">Edit profile</b-button>
+              <b-button href="/Home/userProfile/edit" variant="primary">Edit profile</b-button>
             </b-card>
           </b-collapse>
 
           <b-nav-item variant="dark" href="Home/test">Créer un évènement</b-nav-item>
           <b-nav-item variant="dark" href="#">Mes contacts</b-nav-item>
           <b-nav-item variant="dark" href="#">Calendrier</b-nav-item>
-          <b-nav-item variant="dark" href="#">Ma liste de cadeau</b-nav-item>
+          <b-nav-item variant="dark" href="presents">Ma liste de cadeau</b-nav-item>
         </nav>
       </b-col>
 
