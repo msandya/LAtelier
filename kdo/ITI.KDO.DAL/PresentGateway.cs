@@ -36,7 +36,7 @@ namespace ITI.KDO.DAL
                   from dbo.vPresent p
                     where p.PresentId = @PresentId",
                     new { PresentId = presentId })
-                    .FirstOrDefault(); ;
+                    .FirstOrDefault();
             }
         }
 

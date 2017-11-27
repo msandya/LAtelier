@@ -24,7 +24,7 @@
             </b-card>
           </b-collapse>
 
-          <b-nav-item variant="dark" href="Home/test">Créer un évènement</b-nav-item>
+          <b-nav-item variant="dark" href="events">Créer un évènement</b-nav-item>
           <b-nav-item variant="dark" href="#">Mes contacts</b-nav-item>
           <b-nav-item variant="dark" href="#">Calendrier</b-nav-item>
           <b-nav-item variant="dark" href="presents">Ma liste de cadeau</b-nav-item>
